@@ -16,9 +16,11 @@ import java.util.List;
 public class ProductCategories {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoryID")
     private long categoryID;
+    @Column(name = "categoryName")
     private String categoryName;
 
     @OneToMany(mappedBy = "productCategories",cascade = CascadeType.ALL)
-    private List<ProductOptions> productOptionsList = new ArrayList<>();
+    private List<Products> productsList = new ArrayList<>();
 }

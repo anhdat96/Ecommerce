@@ -1,4 +1,4 @@
-package com.example.demo.mapping;
-
-public class BookMapping {
-}
+//package com.example.demo.mapping;
+//
+//public class BookMapping {
+//}
