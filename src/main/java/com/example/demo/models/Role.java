@@ -16,10 +16,14 @@ import java.util.List;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "roleID")
     private Long roleID;
+    @Column(name = "manager")
     private String manager;
+    @Column(name = "customer")
     private String customer;
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
+
 
 }

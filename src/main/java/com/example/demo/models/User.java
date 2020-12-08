@@ -20,27 +20,36 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long UserID;
+    @Column(name = "userID")
+    private Long userID;
+    @Column(name = "userEmail")
     private String userEmail;
+    @Column(name = "userPassword")
     private String userPassword;
+    @Column(name = "userFirstName")
     private String userFirstName;
+    @Column(name = "userLastName")
     private String userLastName;
+    @Column(name = "userAddress")
     private String userAddress;
+    @Column(name = "userPhone")
     private String userPhone;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "userCity")
     private String userCity;
+    @Column(name = "userState")
     private String userState;
+    @Column(name = "userCountry")
     private String userCountry;
+    @Column(name = "dateOfBirth")
     private Instant dateOfBirth;
 
     @ManyToMany
     @JoinTable(name="user_role",
-            joinColumns = @JoinColumn(name = "UserID"),
+            joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private List<Role> roles = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Orders> ordersList = new ArrayList<>();
 
 
 
