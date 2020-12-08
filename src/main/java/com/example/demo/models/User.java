@@ -7,17 +7,18 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-//@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
 @ToString
-public class User {
+public class User extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userID")
@@ -46,14 +47,10 @@ public class User {
     private Instant dateOfBirth;
 
     @ManyToMany
-    @JoinTable(name="user_role",
+    @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private List<Role> roles = new ArrayList<>();
-
-
-
-
 
 
 }
