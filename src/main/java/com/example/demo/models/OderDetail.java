@@ -5,13 +5,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "oder_detail")
 @Getter
 @Setter
 @ToString
-public class OderDetail {
+public class OderDetail extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long detailID;
