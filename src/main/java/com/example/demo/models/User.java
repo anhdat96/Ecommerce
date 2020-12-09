@@ -19,7 +19,6 @@ import java.util.List;
 @Setter
 @ToString
 public class User extends AbstractAuditingEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userID")
