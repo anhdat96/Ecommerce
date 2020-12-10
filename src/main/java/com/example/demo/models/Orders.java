@@ -42,7 +42,7 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     @Column(name = "orderDate")
     private Instant orderDate;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER) // nguyentrong sua
     private List<OderDetail> oderDetailList = new ArrayList<>();
 
     @ManyToOne
