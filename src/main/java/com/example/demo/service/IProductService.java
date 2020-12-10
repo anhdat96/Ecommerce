@@ -5,6 +5,5 @@ import com.example.demo.service.dto.ProductDTO;
 import java.util.List;
 
 public interface IProductService {
-
-//    List<ProductDTO> getAllProduct();
+    ProductDTO save(ProductDTO productDTO);
 }
