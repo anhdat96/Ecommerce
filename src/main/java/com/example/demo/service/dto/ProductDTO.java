@@ -1,10 +1,14 @@
 package com.example.demo.service.dto;
 
+import com.example.demo.models.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductDTO implements Serializable {
@@ -25,6 +29,16 @@ public class ProductDTO implements Serializable {
     private String productCode;
 
     private Integer status;
+
+    private List<Role> roles = new ArrayList<>();
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getProductID() {
         return productID;
