@@ -25,6 +25,6 @@ public class ProductCategories extends AbstractAuditingEntity implements Seriali
     @Column(name = "categoryName")
     private String categoryName;
 
-    @OneToMany(mappedBy = "productCategories",fetch = FetchType.EAGER) //nguyentrong edit
+    @OneToMany(mappedBy = "productCategories",cascade = CascadeType.ALL)
     private List<Products> productsList = new ArrayList<>();
 }

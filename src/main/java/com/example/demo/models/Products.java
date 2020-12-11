@@ -39,7 +39,7 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @OneToMany(mappedBy = "products", fetch = FetchType.EAGER) // nguyentrong edit
+    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<OderDetail> oderDetailList = new ArrayList<>();
 
     @ManyToOne

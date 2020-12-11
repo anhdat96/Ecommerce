@@ -50,6 +50,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
+	@JsonIgnore //nguyentrong edit
     private List<Role> roles = new ArrayList<>();
 
 
