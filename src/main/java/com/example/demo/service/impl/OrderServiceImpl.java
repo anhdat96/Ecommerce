@@ -4,6 +4,7 @@ import com.example.demo.models.Orders;
 import com.example.demo.models.Products;
 import com.example.demo.repository.IOrderRepository;
 import com.example.demo.repository.IProductRepository;
+import com.example.demo.service.IOrderService;
 import com.example.demo.service.IProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements IProductService {
+public class OrderServiceImpl implements IOrderService {
 
     private final IOrderRepository iOrderRepository;
 
