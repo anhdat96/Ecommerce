@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -51,7 +50,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
-    @JsonIgnore //nguyentrong edit
     private List<Role> roles = new ArrayList<>();
 
 

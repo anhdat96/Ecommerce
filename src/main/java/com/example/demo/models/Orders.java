@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -44,7 +43,6 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     private Instant orderDate;
 
     @OneToMany(mappedBy = "orders")
-    @JsonIgnore //nguyentrong edit
     private List<OderDetail> oderDetailList = new ArrayList<>();
 
     @ManyToOne
