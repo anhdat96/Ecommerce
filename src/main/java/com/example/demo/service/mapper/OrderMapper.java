@@ -16,7 +16,7 @@ public class OrderMapper {
     ModelMapper modelMapper = new ModelMapper();
     /* convert tu entity -->DTO*/
 
-    public OrderDTO convertToDTO(OrderMapper order){
+    public OrderDTO convertToDTO(Orders order){
         OrderDTO orderDTO = modelMapper.map(order,OrderDTO.class);
         return orderDTO;
     }
