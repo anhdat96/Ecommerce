@@ -43,8 +43,7 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     @Column(name = "orderDate")
     private Instant orderDate;
 
-    @OneToMany(mappedBy = "orders")
-	@JsonIgnore //nguyentrong edit
+    @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER) //nguyentrong edit
     private List<OderDetail> oderDetailList = new ArrayList<>();
 
     @ManyToOne
