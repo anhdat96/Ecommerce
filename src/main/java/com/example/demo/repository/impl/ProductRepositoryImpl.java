@@ -12,7 +12,7 @@ import java.util.Optional;
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
     @Override
-    public Optional<Products> search(Long id) {
+    public Optional<Products> search2(Long id) {
         return Optional.empty();
     }
 }

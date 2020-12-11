@@ -12,5 +12,7 @@ import java.util.Optional;
 @Repository
 public interface IProductRepository extends JpaRepository<Products , Long>, ProductRepositoryCustom {
 
+    // only have JPA methods
+
 
 }

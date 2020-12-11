@@ -5,10 +5,10 @@ import com.example.demo.service.dto.ProductDTO;
 import com.example.demo.service.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,15 +28,24 @@ public class ProductController {
         return productServiceImpl.save(productDTO);
     }
 
-//    @GetMapping(value = "/get-one-product/{id}")
-//    public Products findById(@PathVariable Long id) {
-//        Optional<Products> optionalProducts = productServiceImpl.findById(id);
-//        if (!optionalProducts.isPresent()) {
-//            log.error("ID " + id + "is not exist");
-//            ResponseEntity.badRequest().build();
-//        }
-//        return optionalProducts.get();
-//    }
+    @GetMapping("/get-one-product/{id}")
+    public ProductDTO findOne(@PathVariable Long id) {
+        Optional<ProductDTO> optionalProducts = productServiceImpl.findById(id);
+        if (optionalProducts.isPresent()) {
+            log.error("ID " + id + " is not exist!");
+        }
+        return optionalProducts.get();
+
+        //.get() sẽ trả về giá trị trong Optional chính là ProductEntity
+    }
+    @PutMapping("/update-product/{id}")
+    public ResponseEntity<ProductDTO>  update(@RequestBody ProductDTO productDTO, @PathVariable Long id){
+        ProductDTO productDTO1 = productServiceImpl.update(productDTO,id);
+//        return ResponseEntity.ok(productDTO1);
+        return new ResponseEntity<>(productDTO1,HttpStatus.OK);
+    }
+
+
 //    @PutMapping(value = "/update/{id}")
 //    public Products update(@PathVariable Long id,@RequestBody Products products){
 //        if(!productServiceImpl.findById(id).isPresent()){
