@@ -32,6 +32,7 @@ public class ProductMapper {
         productDTO.setStatus(productEntity.getStatus());
         productDTO.setProductCategoryID(productEntity.getProductCategoryID());
         productDTO.setProductPrice(productEntity.getProductPrice());
+        productDTO.setDetailID(productEntity.getProductID());
 
 
         return productDTO;
