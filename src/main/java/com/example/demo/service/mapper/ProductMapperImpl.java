@@ -4,7 +4,11 @@ import com.example.demo.models.Products;
 import com.example.demo.service.dto.ProductDTO;
 import org.modelmapper.ModelMapper;
 
-public class ProductMapper {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductMapperImpl implements IProductMapper{
+
     ModelMapper modelMapper = new ModelMapper();
    /* convert tu entity -->DTO*/
 
@@ -21,7 +25,11 @@ public class ProductMapper {
 
     // cach 2
 
-    public ProductDTO convertToDTO2(Products productEntity){
+    @Override
+    public ProductDTO toDto(Products productEntity) {
+        if(productEntity == null){
+            return null;
+        }
         ProductDTO productDTO = new ProductDTO();
         productDTO.setProductID(productEntity.getProductID());
         productDTO.setProductCode(productEntity.getProductCode());
@@ -34,10 +42,14 @@ public class ProductMapper {
         productDTO.setProductPrice(productEntity.getProductPrice());
         productDTO.setDetailID(productEntity.getProductID());
 
-
         return productDTO;
     }
-    public Products convertToEntity2(ProductDTO productDTO){
+
+    @Override
+    public Products toEntity(ProductDTO productDTO) {
+        if(productDTO == null){
+            return null;
+        }
         Products products = new Products();
 
         products.setProductID(productDTO.getProductID());
@@ -53,10 +65,31 @@ public class ProductMapper {
         return products;
     }
 
+    @Override
+    public List<Products> toEntity(List<ProductDTO> dtoList) {
+        if(dtoList == null){
+            return  null;
+        }
+        List<Products> list = new ArrayList<Products>(dtoList.size());
+        for (ProductDTO productDTO : dtoList){
+            list.add(toEntity(productDTO));
+        }
+        return list;
+
+    }
+
+    @Override
+    public List<ProductDTO> toDto(List<Products> entityList) {
+        if(entityList == null){
+            return null;
+        }
+        List<ProductDTO> list = new ArrayList<ProductDTO>(entityList.size());
+        for (Products products:entityList){
+            list.add(toDto(products));
+        }
+        return list;
+
+    }
 
 
-
-
-
-    
 }
