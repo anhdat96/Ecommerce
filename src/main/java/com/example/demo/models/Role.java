@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,7 +28,8 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     private String manager;
     @Column(name = "customer")
     private String customer;
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER, cascade = CascadeType.ALL) //nguyentrong edit
+    @JsonIgnore
     private List<User> users = new ArrayList<>();
 
 

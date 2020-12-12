@@ -17,14 +17,14 @@ import java.util.Optional;
 public class OrderController {
     private final OrderServiceImpl orderServiceImpl;
 
-    @GetMapping(value = "/all_orders")
-    public List<Orders> findAll() {
-        return orderServiceImpl.finAll();
-    }
-
     @PostMapping(value = "/create")
     public Orders create(@RequestBody Orders orders) {
         return orderServiceImpl.save(orders);
+    }
+
+    @GetMapping(value = "/all_orders")
+    public List<Orders> findAll() {
+        return orderServiceImpl.finAll();
     }
 
     @GetMapping(value = "/get-one-order/{id}")
