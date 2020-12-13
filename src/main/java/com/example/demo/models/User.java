@@ -47,7 +47,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "dateOfBirth")
     private Instant dateOfBirth;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //nguyentrong edit - what the hell? thêm  EAGER thì error là sao
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))

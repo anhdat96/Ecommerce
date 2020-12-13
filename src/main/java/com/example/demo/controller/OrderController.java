@@ -4,9 +4,11 @@ import com.example.demo.models.Orders;
 import com.example.demo.service.impl.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +30,15 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get-one-order/{id}")
+    @Transactional
     public Orders findById(@PathVariable Long id) {
         Optional<Orders> optionalOrders = orderServiceImpl.findById(id);
         if (!optionalOrders.isPresent()) {
             log.error("ID " + id + "is not exist");
             ResponseEntity.badRequest().build();
         }
+        Orders order = optionalOrders.get();
+        Hibernate.initialize(order.getUser().getRoles());
         return optionalOrders.get();
     }
     @PutMapping(value = "/update/{id}")

@@ -29,7 +29,7 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     @Column(name = "customer")
     private String customer;
     @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER, cascade = CascadeType.ALL) //nguyentrong edit
-    @JsonIgnore
+    @JsonIgnore //nguyentrong edit
     private List<User> users = new ArrayList<>();
 
 
