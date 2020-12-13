@@ -7,7 +7,10 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -25,6 +28,6 @@ public class ProductCategories extends AbstractAuditingEntity implements Seriali
     @Column(name = "categoryName")
     private String categoryName;
 
-    @OneToMany(mappedBy = "productCategories",cascade = CascadeType.ALL)
-    private List<Products> productsList = new ArrayList<>();
+    @OneToMany(mappedBy = "productCategories",cascade = CascadeType.ALL, fetch = FetchType.EAGER) //nguyentrong edit
+    private Set<Products> productsList = new HashSet<>(); //nguyentrong edit
 }

@@ -11,7 +11,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -47,14 +49,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "dateOfBirth")
     private Instant dateOfBirth;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //nguyentrong edit
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
     //nguyentrong edit
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Orders> ordersList = new ArrayList<>();
+    private Set<Orders> ordersList = new HashSet<>();
 }

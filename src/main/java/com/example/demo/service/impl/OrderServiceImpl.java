@@ -1,36 +1,79 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.models.Orders;
-import com.example.demo.models.Products;
+import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IOrderRepository;
-import com.example.demo.repository.IProductRepository;
 import com.example.demo.service.IOrderService;
-import com.example.demo.service.IProductService;
+import com.example.demo.service.dto.OrderDTO;
+import com.example.demo.service.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.provider.HibernateUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OrderServiceImpl implements IOrderService {
+    private final IOrderRepository orderRepo;
+    private final OrderMapper orderMapper;
+    private final IOrderDetailRepository orderDetailRepo;
 
-    private final IOrderRepository iOrderRepository;
+    public OrderDTO save(OrderDTO orderDTO) {
+        Orders order = orderRepo.save(orderMapper.convertToEntity(orderDTO));
 
-    public List<Orders> finAll(){
-        return iOrderRepository.findAll();
+        return orderMapper.convertToDTO(order);
     }
 
-    public Optional<Orders> findById(Long id){
-        return iOrderRepository.findById(id);
+    public List<OrderDTO> findAll() {
+        List<OrderDTO> list = new ArrayList<>();
+
+        for (Orders order : orderRepo.findAll()) {
+            list.add(orderMapper.convertToDTO(order));
+        }
+
+        return list;
     }
 
-    public Orders save(Orders orders){
-        return  iOrderRepository.save(orders);
+    public OrderDTO findById(Long id) {
+        Optional<Orders> opt = orderRepo.findById(id);
+        if (!opt.isPresent()) {
+            log.error("ID " + id + "is not exist");
+            ResponseEntity.badRequest().build();
+        }
+
+        return orderMapper.convertToDTO(opt.get());
     }
-    public void deleteById(Long id)
-    {
-        iOrderRepository.deleteById(id);
+
+    public OrderDTO update(Long id, OrderDTO orderDTO) {
+        this.findById(id);
+
+        Orders order = orderMapper.convertToEntity(orderDTO);
+        order.setOrderID(id);
+        return orderMapper.convertToDTO(orderRepo.save(order));
+    }
+
+    public void deleteById(Long id) {
+        if (this.updateRelationTable(id)) {
+            orderRepo.deleteById(id);
+        }
+    }
+
+    private boolean updateRelationTable(Long id) {
+        try {
+            System.out.println("Đã xóa tất cả order detail có order id là " + id);
+            HibernateUtils.get
+            orderDetailRepo.de
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

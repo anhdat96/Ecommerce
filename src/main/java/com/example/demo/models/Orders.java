@@ -11,7 +11,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -44,7 +46,7 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     private Instant orderDate;
 
     @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER) //nguyentrong edit
-    private List<OderDetail> oderDetailList = new ArrayList<>();
+    private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
     @JoinColumn(name = "userID")

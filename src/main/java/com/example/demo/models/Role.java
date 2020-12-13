@@ -10,7 +10,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -30,7 +32,7 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     private String customer;
     @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER, cascade = CascadeType.ALL) //nguyentrong edit
     @JsonIgnore //nguyentrong edit
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>(); //nguyentrong edit
 
 
 }

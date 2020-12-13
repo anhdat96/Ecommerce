@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.Orders;
+import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.impl.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,46 +21,27 @@ public class OrderController {
     private final OrderServiceImpl orderServiceImpl;
 
     @PostMapping(value = "/create")
-    public Orders create(@RequestBody Orders orders) {
-        return orderServiceImpl.save(orders);
-    }
-
-    @GetMapping(value = "/all_orders")
-    public List<Orders> findAll() {
-        return orderServiceImpl.finAll();
-    }
-
-    @GetMapping(value = "/get-one-order/{id}")
     @Transactional
-    public Orders findById(@PathVariable Long id) {
-        Optional<Orders> optionalOrders = orderServiceImpl.findById(id);
-        if (!optionalOrders.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
-        }
-        Orders order = optionalOrders.get();
-        Hibernate.initialize(order.getUser().getRoles());
-        return optionalOrders.get();
-    }
-    @PutMapping(value = "/update/{id}")
-    public Orders update(@PathVariable Long id,@RequestBody Orders order){
-        Optional<Orders> optionalOrders = orderServiceImpl.findById(id);
-        if(!orderServiceImpl.findById(id).isPresent()){
-            log.error("ID "+ id + "is not exist");
-            ResponseEntity.badRequest().build();
-            return optionalOrders.get();
-        }else {
-            order.setOrderID(id);
-            return orderServiceImpl.save(order);
-        }
+    public OrderDTO create(@RequestBody OrderDTO orderDTO) {
+        return orderServiceImpl.save(orderDTO);
     }
 
-    @DeleteMapping(value = "/delete-order/{id}")
-    public void delete(@PathVariable Long id){
-        if(!orderServiceImpl.findById(id).isPresent()){
-            log.error("ID "+ id + "is not exist");
-            ResponseEntity.badRequest().build();
-        }
+    @GetMapping(value = "/get-all")
+    public List<OrderDTO> findAll() {
+        return orderServiceImpl.findAll();
+    }
+
+    @GetMapping(value = "/get-one")
+    public OrderDTO findById(@RequestParam Long id) {
+        return orderServiceImpl.findById(id);
+    }
+    @PutMapping(value = "/update")
+    public OrderDTO update(@RequestParam Long id,@RequestBody OrderDTO orderDTO){
+        return orderServiceImpl.update(id, orderDTO);
+    }
+
+    @DeleteMapping(value = "/delete")
+    public void delete(@RequestParam Long id){
         orderServiceImpl.deleteById(id);
     }
 }
