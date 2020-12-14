@@ -19,8 +19,8 @@ import java.util.Optional;
 @RequestMapping("/api/products")
 @Slf4j
 public class ProductController {
-
-    private final OderdetailImpl oderdetailImpl;
+    @Autowired
+    OderdetailImpl oderdetailImpl;
 
     @Autowired
     IProductService productServiceImpl;

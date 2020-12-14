@@ -3,6 +3,7 @@ package com.example.demo.repository.impl;
 import com.example.demo.models.Products;
 import com.example.demo.repository.custom.ProductRepositoryCustom;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.MultiValueMap;
 
 import javax.persistence.EntityManager;
@@ -10,7 +11,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;

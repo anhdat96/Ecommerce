@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.repository.custom.ProductRepositoryCustom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,10 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EnableJpaRepositories("com.example.demo.repository")
-@EnableJpaAuditing
+@EnableJpaRepositories(basePackages = {"com.example.demo.repository"})
 @EnableTransactionManagement
-@ConfigurationProperties(prefix = "application")
 public class DataBaseConfiguration {
     private final Logger log = LoggerFactory.getLogger(DataBaseConfiguration.class);
 }
