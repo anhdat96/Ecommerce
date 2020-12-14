@@ -29,8 +29,12 @@ public class ProductDTO implements Serializable {
     private String productCode;
 
     private Integer status;
+
+
+
     // khai bao id cua quan he
     private Long detailID;
+
 
     private List<Role> roles = new ArrayList<>();
 
@@ -113,4 +117,13 @@ public class ProductDTO implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+    public Long getDetailID() {
+        return detailID;
+    }
+
+    public void setDetailID(Long detailID) {
+        this.detailID = detailID;
+    }
+
+
 }

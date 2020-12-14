@@ -5,9 +5,10 @@ import com.example.demo.repository.IProductRepository;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.ProductDTO;
 import com.example.demo.service.mapper.IProductMapper;
-import lombok.RequiredArgsConstructor;
+import com.example.demo.service.mapper.OderdetailMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,13 +16,17 @@ import java.util.Optional;
 
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class ProductServiceImpl implements IProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
-
-    private final IProductRepository iProductRepository;
-    private final IProductMapper iProductMapper;
+    @Autowired
+    IProductRepository iProductRepository;
+    //    private final IProductRepository iProductRepository;
+    @Autowired
+    IProductMapper iProductMapper;
+//    private final IProductMapper iProductMapper;
+    @Autowired
+    OderdetailMapper oderdetailMapper;
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
@@ -46,14 +51,14 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ProductDTO update(ProductDTO productDTO, Long id) {
-        log.debug("Request to update Product :{}" ,id);
+        log.debug("Request to update Product :{}", id);
         Products products1 = iProductRepository.findById(id).get();
-        if (products1.getProductID() == id ){
+        if (products1.getProductID() == id) {
             products1 = iProductMapper.toEntity(productDTO);
-            products1 =  iProductRepository.save(products1);
+            products1 = iProductRepository.save(products1);
             return iProductMapper.toDto(products1);
         }
-        log.debug("can not find this "+id);
+        log.debug("can not find this " + id);
         return null;
     }
 

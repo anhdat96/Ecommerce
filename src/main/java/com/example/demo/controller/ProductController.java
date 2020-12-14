@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.models.OderDetail;
 import com.example.demo.models.Products;
+import com.example.demo.service.dto.OderdetailDTO;
 import com.example.demo.service.dto.ProductDTO;
+import com.example.demo.service.impl.OderdetailImpl;
 import com.example.demo.service.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductServiceImpl productServiceImpl;
+    private final OderdetailImpl oderdetailImpl;
 
 //    @GetMapping(value = "/all_Products")
 //    public List<Products> findAll() {
@@ -43,6 +47,17 @@ public class ProductController {
         ProductDTO productDTO1 = productServiceImpl.update(productDTO,id);
 //        return ResponseEntity.ok(productDTO1);
         return new ResponseEntity<>(productDTO1,HttpStatus.OK);
+    }
+    @PostMapping(value = "/save")
+    public ProductDTO save(@RequestBody ProductDTO productDTO){
+        ProductDTO productDTO1 = productServiceImpl.save(productDTO);
+
+        Optional<OderdetailDTO> oderDetail1 = oderdetailImpl.findById(productDTO.getDetailID());
+        if(oderDetail1.isPresent()){
+            oderdetailImpl.save(oderDetail1.get());
+        }
+        return productDTO1;
+
     }
 
 

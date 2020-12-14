@@ -11,8 +11,8 @@ import java.util.Optional;
 
 public class ProductRepositoryImpl implements ProductRepositoryCustom {
 
-    @Override
-    public Optional<Products> search2(Long id) {
-        return Optional.empty();
-    }
+//    @Override
+//    public Products search2(Long id) {
+//        return null;
+//    }
 }
