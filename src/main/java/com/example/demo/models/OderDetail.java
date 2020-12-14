@@ -34,14 +34,12 @@ public class OderDetail extends AbstractAuditingEntity implements Serializable {
     private Integer Quantity;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne //nguyentrong edit
     @JoinColumn(name = "productID",nullable = false)
-    @JsonIgnore //nguyentrong edit
     private Products products;
 
     @ManyToOne
     @JoinColumn(name = "orderID",nullable = false)
-    @JsonIgnore //nguyentrong edit
     private Orders orders;
 
 

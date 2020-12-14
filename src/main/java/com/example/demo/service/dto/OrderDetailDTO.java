@@ -5,16 +5,17 @@ import com.example.demo.models.Orders;
 import com.example.demo.models.Products;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
-@Data
 @EqualsAndHashCode(callSuper=true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@Getter
+@Setter
+@ToString
 public class OrderDetailDTO extends AbstractAuditingEntity implements Serializable {
     private Long detailID;
     private Long detailOder;
@@ -22,6 +23,8 @@ public class OrderDetailDTO extends AbstractAuditingEntity implements Serializab
     private String detailName;
     private Float detailPrice;
     private Integer Quantity;
+    private Long product_id;
     private Products products;
+    private Long order_id;
     private Orders orders;
 }
