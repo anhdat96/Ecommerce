@@ -6,7 +6,9 @@ import com.example.demo.models.User;
 import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.dto.OrderDTO;
+import com.example.demo.service.dto.OrderDetailDTO;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.weaver.ast.Or;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +32,9 @@ public class OrderMapper {
     /* convert tu entity -->DTO*/
 
     public OrderDTO convertToDTO(Orders order) {
-        return modelMapper.map(order, OrderDTO.class);
+        OrderDTO dto = modelMapper.map(order, OrderDTO.class);
+
+        return dto;
     }
 
     /* convert tu DTO --> Entity*/

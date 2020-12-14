@@ -3,6 +3,7 @@ package com.example.demo.service.dto;
 import com.example.demo.models.AbstractAuditingEntity;
 import com.example.demo.models.OderDetail;
 import com.example.demo.models.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 

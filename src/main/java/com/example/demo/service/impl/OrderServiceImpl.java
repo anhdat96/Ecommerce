@@ -67,33 +67,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public void deleteById(Long id) {
-        /*if (this.updateRelationTable(id)) {
-            orderRepo.deleteById(id);
-        }*/
-        //update order detail table
-
-
-        // update user table
+        orderDetailRepo.deleteAll(orderRepo.getOne(id).getOderDetailList());
         orderRepo.deleteById(id);
     }
-
-
-    /*private boolean updateRelationTable(Long id) {
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<OderDetail> cq =  cb.createQuery(OderDetail.class);
-            Root<OderDetail> root = cq.from(OderDetail.class);
-            cq.where(cb.equal(root.get("orders"), id));
-            TypedQuery<OderDetail> query = em.createQuery(cq);
-
-
-            List<OderDetail> rs = query.getResultList();
-            System.err.println("updateRelationTable - rs có " + rs.size() + " phần tử");
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
 }

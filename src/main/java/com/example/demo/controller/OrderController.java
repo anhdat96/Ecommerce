@@ -41,6 +41,7 @@ public class OrderController {
     }
 
     @DeleteMapping(value = "/delete")
+    @Transactional
     public void delete(@RequestParam Long id){
         orderServiceImpl.deleteById(id);
     }

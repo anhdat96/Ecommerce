@@ -30,7 +30,7 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     private String manager;
     @Column(name = "customer")
     private String customer;
-    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER, cascade = CascadeType.ALL) //nguyentrong edit
+    @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER) //nguyentrong edit
     @JsonIgnore //nguyentrong edit
     private Set<User> users = new HashSet<>(); //nguyentrong edit
 

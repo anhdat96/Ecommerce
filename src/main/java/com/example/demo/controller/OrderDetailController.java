@@ -5,6 +5,7 @@ import com.example.demo.service.impl.OrderDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.Set;
 
 @RestController
@@ -34,6 +35,7 @@ public class OrderDetailController {
     }
 
     @DeleteMapping(value = "/delete")
+    @Transactional
     public void delete(@RequestParam Long id) {
         orderDetailServiceImpl.deleteById(id);
     }
