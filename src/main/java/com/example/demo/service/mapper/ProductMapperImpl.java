@@ -3,11 +3,12 @@ package com.example.demo.service.mapper;
 import com.example.demo.models.Products;
 import com.example.demo.service.dto.ProductDTO;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class ProductMapperImpl implements IProductMapper{
+@Component
+public class ProductMapperImpl implements IProductMapper {
 
     ModelMapper modelMapper = new ModelMapper();
    /* convert tu entity -->DTO*/
