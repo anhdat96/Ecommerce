@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,14 +50,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "dateOfBirth")
     private Instant dateOfBirth;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //nguyentrong edit
+    @ManyToMany(fetch = FetchType.EAGER) //nguyentrong edit
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
+    @JsonBackReference //nguyentrong edit
     private Set<Role> roles = new HashSet<>();
 
     //nguyentrong edit
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonBackReference //nguyentrong edit
     private Set<Orders> ordersList = new HashSet<>();
 }

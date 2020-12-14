@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class ProductCategories extends AbstractAuditingEntity implements Seriali
     @Column(name = "categoryName")
     private String categoryName;
 
-    @OneToMany(mappedBy = "productCategories", fetch = FetchType.EAGER) @JsonIgnore//nguyentrong edit
+    @OneToMany(mappedBy = "productCategories", fetch = FetchType.EAGER)
+    @JsonBackReference //nguyentrong edit
     private Set<Products> productsList = new HashSet<>(); //nguyentrong edit
 }

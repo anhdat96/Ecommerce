@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,10 +37,12 @@ public class OderDetail extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne //nguyentrong edit
     @JoinColumn(name = "productID",nullable = false)
+    @JsonBackReference //nguyentrong edit
     private Products products;
 
     @ManyToOne
     @JoinColumn(name = "orderID",nullable = false)
+    @JsonBackReference //nguyentrong edit
     private Orders orders;
 
 

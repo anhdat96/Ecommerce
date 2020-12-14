@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,7 +32,7 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     @Column(name = "customer")
     private String customer;
     @ManyToMany(mappedBy = "roles",fetch = FetchType.EAGER) //nguyentrong edit
-    @JsonIgnore //nguyentrong edit
+    @JsonBackReference //nguyentrong edit
     private Set<User> users = new HashSet<>(); //nguyentrong edit
 
 
