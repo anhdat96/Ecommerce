@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,9 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,14 +46,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "dateOfBirth")
     private Instant dateOfBirth;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //nguyentrong edit
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //nguyentrong edit
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private Set<Role> roles = new HashSet<>();
 
     //nguyentrong edit
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Orders> ordersList = new HashSet<>();
 }

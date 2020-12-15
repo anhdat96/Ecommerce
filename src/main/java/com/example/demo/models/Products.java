@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,8 +8,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -40,8 +39,8 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    @OneToMany(mappedBy = "products",  fetch = FetchType.EAGER) @JsonIgnore //nguyentrong edit
-    private List<OderDetail> oderDetailList = new ArrayList<>();
+    @OneToMany(mappedBy = "products", fetch = FetchType.EAGER) //nguyentrong edit
+    private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
     @JoinColumn(name = "categoryID")
