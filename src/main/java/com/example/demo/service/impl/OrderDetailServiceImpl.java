@@ -21,8 +21,6 @@ import java.util.*;
 @RequiredArgsConstructor
 public class OrderDetailServiceImpl implements IOrderDetailService {
     private final IOrderDetailRepository orderDetailRepo;
-    private final IOrderRepository orderRepo;
-    private final IProductRepository productRepo;
     private final OrderDetailMapper orderDetailMapper;
 
 
@@ -53,30 +51,8 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     }
     public void deleteById(Long id)
     {
-        /*OderDetail orderDetail = orderDetailRepo.findById(id).get();
-        this.removeRelationTable(orderDetail);
-        orderDetailRepo.deleteById(id);*/
         orderDetailRepo.deleteById(id);
     }
-
-    /*private void removeRelationTable(OderDetail orderDetail) {
-        this.removeRelationOrder(orderDetail);
-        this.removeRelationProduct(orderDetail);
-    }
-
-    private void removeRelationProduct(OderDetail orderDetail) {
-        Products product = orderDetail.getProducts();
-
-        product.getOderDetailList().remove(orderDetail);
-        productRepo.save(product);
-    }
-
-    private void removeRelationOrder(OderDetail orderDetail) {
-        Orders order = orderDetail.getOrders();
-
-        order.getOderDetailList().remove(orderDetail);
-        orderRepo.save(order);
-    }*/
 
     public OrderDetailDTO update(Long id, OrderDetailDTO dto) {
         findById(id);

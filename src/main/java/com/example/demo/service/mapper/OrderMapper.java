@@ -17,29 +17,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-/*nguyentrong đề xuất: thêm class abstract Mapper cha bao gồm:
-1. attributes: ModelMapper
-2. methods:
-- convertToDTO()
-- convertToEntity()
-**note: nếu thêm class abstract Mapper cha thì cần thêm class abstract DTO cha*/
 @Service
 @RequiredArgsConstructor
-public class OrderMapper {
+public class OrderMapper extends BaseMapper{
     private final IOrderDetailRepository orderDetailRepo;
     private final IUserRepository userRepo;
-    ModelMapper modelMapper = new ModelMapper();
     /* convert tu entity -->DTO*/
 
     public OrderDTO convertToDTO(Orders order) {
-        OrderDTO dto = modelMapper.map(order, OrderDTO.class);
+        OrderDTO dto = this.tranferData(order, OrderDTO.class);
 
         return dto;
     }
 
     /* convert tu DTO --> Entity*/
     public Orders convertToEntity(OrderDTO orderDTO) {
-        Orders order = modelMapper.map(orderDTO, Orders.class);
+        Orders order = this.tranferData(orderDTO, Orders.class);
 
         order.setOderDetailList(this.getOrderDetailById(orderDTO.getOrderDetailIds()));
         order.setUser(this.getUserById(orderDTO.getUser_id()));

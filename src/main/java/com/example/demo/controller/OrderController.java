@@ -35,7 +35,9 @@ public class OrderController {
     public OrderDTO findById(@RequestParam Long id) {
         return orderServiceImpl.findById(id);
     }
+
     @PutMapping(value = "/update")
+    @Transactional
     public OrderDTO update(@RequestParam Long id,@RequestBody OrderDTO orderDTO){
         return orderServiceImpl.update(id, orderDTO);
     }

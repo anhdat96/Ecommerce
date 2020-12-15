@@ -14,21 +14,20 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class OrderDetailMapper {
+public class OrderDetailMapper extends BaseMapper{
     private final IProductRepository productRepo;
     private final IOrderRepository orderRepo;
-    ModelMapper modelMapper = new ModelMapper();
     /* convert tu entity -->DTO*/
 
     public OrderDetailDTO convertToDTO(OderDetail orderDetail){
-        OrderDetailDTO dto = modelMapper.map(orderDetail,OrderDetailDTO.class);
+        OrderDetailDTO dto = this.tranferData(orderDetail, OrderDetailDTO.class);
 
         return dto;
     }
 
     /* convert tu DTO --> Entity*/
     public OderDetail convertToEntity(OrderDetailDTO dto){
-        OderDetail entity = modelMapper.map(dto,OderDetail.class);
+        OderDetail entity = this.tranferData(dto, OderDetail.class);
 
         //confirg field
         entity.setProducts(this.getRelationRecordProduct(dto.getProduct_id()));
