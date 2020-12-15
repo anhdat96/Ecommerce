@@ -3,7 +3,9 @@ package com.example.demo.service.mapper;
 import com.example.demo.models.OderDetail;
 import com.example.demo.service.dto.OderdetailDTO;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OderdetailMapper {
     ModelMapper modelMapper = new ModelMapper();
     /* convert tu entity -->DTO*/

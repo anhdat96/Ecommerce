@@ -5,7 +5,6 @@ import com.example.demo.service.IOderdetailService;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.OderdetailDTO;
 import com.example.demo.service.dto.ProductDTO;
-import com.example.demo.service.impl.OderdetailImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -59,6 +58,7 @@ public class ProductController {
         Optional<OderdetailDTO> oderDetail1 = oderdetailService.findById(productDTO.getDetailID());
         if (oderDetail1.isPresent()) {
             oderdetailService.save(oderDetail1.get());
+            log.info("save successfully");
         }
         return productDTO1;
 
