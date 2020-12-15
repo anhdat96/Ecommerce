@@ -1,20 +1,15 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "product_category")
@@ -30,7 +25,6 @@ public class ProductCategories extends AbstractAuditingEntity implements Seriali
     @Column(name = "categoryName")
     private String categoryName;
 
-    @OneToMany(mappedBy = "productCategories", fetch = FetchType.EAGER)
-    @JsonBackReference //nguyentrong edit
+    @OneToMany(mappedBy = "productCategories", fetch = FetchType.EAGER) //nguyentrong edit
     private Set<Products> productsList = new HashSet<>(); //nguyentrong edit
 }

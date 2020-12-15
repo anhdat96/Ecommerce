@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.models.OderDetail;
 import com.example.demo.models.Orders;
 import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IOrderRepository;
@@ -9,16 +8,10 @@ import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

@@ -1,21 +1,16 @@
 package com.example.demo.service.dto;
 
 import com.example.demo.models.AbstractAuditingEntity;
-import com.example.demo.models.OderDetail;
-import com.example.demo.models.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper=true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Getter
 @Setter
@@ -31,8 +26,8 @@ public class OrderDTO extends AbstractAuditingEntity implements Serializable {
     private String orderPhone;
     private String orderEmail;
     private Instant orderDate;
-    private List<Long> orderDetailIds;
-    private Set<OderDetail> oderDetailList = new HashSet<>();
+    private List<Long> orderDetail_ids;
+    private Set<OrderDetailDTO> oderDetailList;
     private Long user_id;
-    private User user;
+    private UserDTO user;
 }

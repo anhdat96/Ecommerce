@@ -1,7 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,9 +9,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -46,13 +42,11 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     @Column(name = "orderDate")
     private Instant orderDate;
 
-    @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
-    @JsonBackReference //nguyentrong edit
+    @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER) //nguyentrong edit
     private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
     @JoinColumn(name = "userID")
-    @JsonBackReference //nguyentrong edit
     private User user;
 
 }

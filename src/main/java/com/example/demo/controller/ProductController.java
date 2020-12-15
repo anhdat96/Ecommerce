@@ -36,18 +36,19 @@ public class ProductController {
         }
         return optionalProducts.get();
     }
+
     @PutMapping(value = "/update/{id}")
-    public Products update(@PathVariable Long id,@RequestBody Products products){
-        if(!productServiceImpl.findById(id).isPresent()){
-            log.error("ID "+ id + "is not exist");
+    public Products update(@PathVariable Long id, @RequestBody Products products) {
+        if (!productServiceImpl.findById(id).isPresent()) {
+            log.error("ID " + id + "is not exist");
         }
         return productServiceImpl.save(products);
     }
 
     @DeleteMapping(value = "/delete-product/{id}")
-    public void delete(@PathVariable Long id){
-        if(!productServiceImpl.findById(id).isPresent()){
-            log.error("ID "+ id + "is not exist");
+    public void delete(@PathVariable Long id) {
+        if (!productServiceImpl.findById(id).isPresent()) {
+            log.error("ID " + id + "is not exist");
             ResponseEntity.badRequest().build();
         }
         productServiceImpl.deleteById(id);
