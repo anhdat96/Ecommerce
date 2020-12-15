@@ -4,7 +4,6 @@ import com.example.demo.models.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ public class ProductDTO implements Serializable {
     private String productCode;
 
     private Integer status;
-
 
 
     // khai bao id cua quan he
@@ -117,6 +115,7 @@ public class ProductDTO implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
     public Long getDetailID() {
         return detailID;
     }

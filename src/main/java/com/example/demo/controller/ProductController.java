@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.service.IOderdetailService;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.OderdetailDTO;
 import com.example.demo.service.dto.ProductDTO;
@@ -20,14 +21,14 @@ import java.util.Optional;
 @Slf4j
 public class ProductController {
     @Autowired
-    OderdetailImpl oderdetailImpl;
+    IOderdetailService oderdetailService;
 
     @Autowired
-    IProductService productServiceImpl;
+    IProductService productService;
 
     @PostMapping(value = "/create")
     public ProductDTO create(@RequestBody ProductDTO productDTO) {
-        return productServiceImpl.save(productDTO);
+        return productService.save(productDTO);
     }
 
     @GetMapping("/get-all-product")
@@ -38,7 +39,7 @@ public class ProductController {
 
     @GetMapping("/get-one-product/{id}")
     public ProductDTO findOne(@PathVariable Long id) {
-        Optional<ProductDTO> optionalProducts = productServiceImpl.findById(id);
+        Optional<ProductDTO> optionalProducts = productService.findById(id);
         if (!optionalProducts.isPresent()) {
             log.error("ID " + id + " is not exist!");
         }
@@ -47,17 +48,17 @@ public class ProductController {
 
     @PutMapping("/update-product/{id}")
     public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO productDTO, @PathVariable Long id) {
-        ProductDTO productDTO1 = productServiceImpl.update(productDTO, id);
+        ProductDTO productDTO1 = productService.update(productDTO, id);
         return new ResponseEntity<>(productDTO1, HttpStatus.OK);
     }
 
     @PostMapping(value = "/save")
     public ProductDTO save(@RequestBody ProductDTO productDTO) {
-        ProductDTO productDTO1 = productServiceImpl.save(productDTO);
+        ProductDTO productDTO1 = productService.save(productDTO);
 
-        Optional<OderdetailDTO> oderDetail1 = oderdetailImpl.findById(productDTO.getDetailID());
+        Optional<OderdetailDTO> oderDetail1 = oderdetailService.findById(productDTO.getDetailID());
         if (oderDetail1.isPresent()) {
-            oderdetailImpl.save(oderDetail1.get());
+            oderdetailService.save(oderDetail1.get());
         }
         return productDTO1;
 
@@ -65,11 +66,11 @@ public class ProductController {
 
     @DeleteMapping(value = "/delete-product/{id}")
     public void delete(@PathVariable Long id) {
-        if (!productServiceImpl.findById(id).isPresent()) {
+        if (!productService.findById(id).isPresent()) {
             log.error("ID " + id + "is not exist");
             ResponseEntity.badRequest().build();
         } else {
-            productServiceImpl.delete(id);
+            productService.delete(id);
             log.info("delete product " + id + " successfully");
         }
     }
