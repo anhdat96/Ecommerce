@@ -1,7 +1,10 @@
 package com.example.demo.service.dto;
 
-import javax.persistence.Column;
+import com.example.demo.models.Orders;
+import com.example.demo.models.Products;
+import lombok.Data;
 
+@Data
 public class OderdetailDTO {
     private Long detailID;
 
@@ -14,6 +17,26 @@ public class OderdetailDTO {
     private Float detailPrice;
 
     private Integer Quantity;
+
+    private Products products;
+
+    private Orders orders;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    public Products getProducts() {
+        return products;
+    }
+
+    public void setProducts(Products products) {
+        this.products = products;
+    }
 
     public Long getDetailID() {
         return detailID;

@@ -4,8 +4,7 @@ import com.example.demo.models.OderDetail;
 import com.example.demo.repository.IOderdetailReository;
 import com.example.demo.service.IOderdetailService;
 import com.example.demo.service.dto.OderdetailDTO;
-import com.example.demo.service.dto.ProductDTO;
-import com.example.demo.service.mapper.OderdetailMapper;
+import com.example.demo.service.mapper.OderdetailMapperImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +17,16 @@ import java.util.Optional;
 public class OderdetailImpl implements IOderdetailService {
 
     private final IOderdetailReository iOderdetailReository;
-    private final OderdetailMapper oderdetailMapper;
+    private final OderdetailMapperImpl oderdetailMapperImpl;
     @Override
     public OderdetailDTO save(OderdetailDTO oderdetailDTO) {
-        OderDetail oderDetail = oderdetailMapper.convertToEntity(oderdetailDTO);
+        OderDetail oderDetail = oderdetailMapperImpl.toEntity(oderdetailDTO);
         oderDetail = iOderdetailReository.save(oderDetail);
-        return oderdetailMapper.convertToDTO(oderDetail);
+        return oderdetailMapperImpl.toDto(oderDetail);
     }
 
     @Override
     public Optional<OderdetailDTO> findById(Long id) {
-        return iOderdetailReository.findById(id).map(oderdetailMapper::convertToDTO);
+        return iOderdetailReository.findById(id).map(oderdetailMapperImpl::toDto);
     }
 }

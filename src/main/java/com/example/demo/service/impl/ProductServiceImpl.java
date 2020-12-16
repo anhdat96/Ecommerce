@@ -5,10 +5,11 @@ import com.example.demo.repository.IProductRepository;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.ProductDTO;
 import com.example.demo.service.mapper.IProductMapper;
-import com.example.demo.service.mapper.OderdetailMapper;
+import com.example.demo.service.mapper.OderdetailMapperImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,11 +23,12 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductRepository iProductRepository;
     //    private final IProductRepository iProductRepository;
+    @Qualifier("productMapperImpl")
     @Autowired
     IProductMapper iProductMapper;
     //    private final IProductMapper iProductMapper;
     @Autowired
-    OderdetailMapper oderdetailMapper;
+    OderdetailMapperImpl oderdetailMapperImpl;
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {

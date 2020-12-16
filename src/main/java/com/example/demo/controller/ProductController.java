@@ -51,18 +51,24 @@ public class ProductController {
         return new ResponseEntity<>(productDTO1, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/save")
-    public ProductDTO save(@RequestBody ProductDTO productDTO) {
-        ProductDTO productDTO1 = productService.save(productDTO);
-
-        Optional<OderdetailDTO> oderDetail1 = oderdetailService.findById(productDTO.getDetailID());
-        if (oderDetail1.isPresent()) {
-            oderdetailService.save(oderDetail1.get());
-            log.info("save successfully");
-        }
-        return productDTO1;
-
-    }
+//    @PostMapping(value = "/save")
+//    public ProductDTO save(@RequestBody ProductDTO productDTO) {
+//        ProductDTO productDTO1 = productService.save(productDTO);
+//        OderdetailDTO oderdetailDTO = new OderdetailDTO();
+//        oderdetailDTO.setDetailID(productDTO.getDetailID());
+//        oderdetailDTO.setDetailProductID(productDTO.getProductID());
+//        oderdetailService.save(oderdetailDTO);
+//
+////        Optional<OderdetailDTO> oderDetail1 = oderdetailService.findById(productDTO.getDetailID());
+//       /* if (!oderDetail1.isPresent()) {
+////            productDTO1.setDetailID(oderDetail1.get().getDetailID());
+//            oderDetail1.get().setDetailID(productDTO.getDetailID());
+//            oderdetailService.save(oderDetail1.get());
+//            log.info("save successfully");
+//        }*/
+//        return productDTO1;
+//
+//    }
 
     @DeleteMapping(value = "/delete-product/{id}")
     public void delete(@PathVariable Long id) {
