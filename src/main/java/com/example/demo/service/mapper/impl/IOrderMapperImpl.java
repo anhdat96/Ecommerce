@@ -7,7 +7,7 @@ import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.dto.*;
 import com.example.demo.service.mapper.BaseMapper;
-import com.example.demo.service.mapper.OrderMapper;
+import com.example.demo.service.mapper.IOrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
-public class OrderMapperImpl extends BaseMapper implements OrderMapper {
+public class IOrderMapperImpl extends BaseMapper implements IOrderMapper {
     private final IOrderDetailRepository orderDetailRepo;
     private final IUserRepository userRepo;
 

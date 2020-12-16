@@ -4,7 +4,7 @@ import com.example.demo.models.OderDetail;
 import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.service.IOrderDetailService;
 import com.example.demo.service.dto.OrderDetailDTO;
-import com.example.demo.service.mapper.impl.OrderDetailMapperImpl;
+import com.example.demo.service.mapper.IOrderDetailMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderDetailServiceImpl implements IOrderDetailService {
     private final IOrderDetailRepository orderDetailRepo;
-    private final OrderDetailMapperImpl orderDetailMapperImpl;
+    private final IOrderDetailMapper orderDetailMapper;
 
 
     public List<OrderDetailDTO> findAll() {
         Set<OrderDetailDTO> set = new HashSet<>();
 
         for (OderDetail entity : orderDetailRepo.findAll()) {
-            set.add(orderDetailMapperImpl.convertToDTO(entity));
+            set.add(orderDetailMapper.convertToDTO(entity));
         }
 
         return set.stream()
@@ -40,13 +40,13 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
             ResponseEntity.badRequest().build();
         }
 
-        return orderDetailMapperImpl.convertToDTO(optionalOrderDetail.get());
+        return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
     }
 
     public OrderDetailDTO save(OrderDetailDTO dto) {
-        OderDetail entity = orderDetailRepo.save(orderDetailMapperImpl.convertToEntity(dto));
+        OderDetail entity = orderDetailRepo.save(orderDetailMapper.convertToEntity(dto));
 
-        return orderDetailMapperImpl.convertToDTO(entity);
+        return orderDetailMapper.convertToDTO(entity);
     }
 
     public void deleteById(Long id) {

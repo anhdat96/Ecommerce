@@ -7,7 +7,7 @@ import com.example.demo.service.dto.OrderDetailDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface OrderDetailMapper {
+public interface IOrderDetailMapper {
     OrderDetailDTO convertToDTO(OderDetail orderDetail);
 
     OderDetail convertToEntity(OrderDetailDTO orderDetailDTO);
