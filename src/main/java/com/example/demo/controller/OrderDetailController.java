@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/order-detail")
@@ -20,7 +23,7 @@ public class OrderDetailController {
     }
 
     @GetMapping(value = "/get-all")
-    public Set<OrderDetailDTO> findAll() {
+    public List<OrderDetailDTO> findAll() {
         return orderDetailServiceImpl.findAll();
     }
 
