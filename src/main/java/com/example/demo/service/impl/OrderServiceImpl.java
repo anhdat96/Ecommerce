@@ -5,8 +5,7 @@ import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IOrderRepository;
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
-import com.example.demo.service.dto.OrderDetailDTO;
-import com.example.demo.service.mapper.OrderMapper;
+import com.example.demo.service.mapper.impl.OrderMapperImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +20,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrderServiceImpl implements IOrderService {
     private final IOrderRepository orderRepo;
-    private final OrderMapper orderMapper;
+    private final OrderMapperImpl orderMapperImpl;
     private final IOrderDetailRepository orderDetailRepo;
     private final EntityManager em;
 
     public OrderDTO save(OrderDTO orderDTO) {
-        Orders order = orderRepo.save(orderMapper.convertToEntity(orderDTO));
+        Orders order = orderRepo.save(orderMapperImpl.convertToEntity(orderDTO));
 
-        return orderMapper.convertToDTO(order);
+        return orderMapperImpl.convertToDTO(order);
     }
 
     public List<OrderDTO> findAll() {
         Set<OrderDTO> set = new HashSet<>();
 
         for (Orders order : orderRepo.findAll()) {
-            set.add(orderMapper.convertToDTO(order));
+            set.add(orderMapperImpl.convertToDTO(order));
         }
 
         return set.stream()
@@ -50,15 +49,15 @@ public class OrderServiceImpl implements IOrderService {
             ResponseEntity.badRequest().build();
         }
 
-        return orderMapper.convertToDTO(opt.get());
+        return orderMapperImpl.convertToDTO(opt.get());
     }
 
     public OrderDTO update(Long id, OrderDTO orderDTO) {
         this.findById(id);
 
-        Orders order = orderMapper.convertToEntity(orderDTO);
+        Orders order = orderMapperImpl.convertToEntity(orderDTO);
         order.setOrderID(id);
-        return orderMapper.convertToDTO(orderRepo.save(order));
+        return orderMapperImpl.convertToDTO(orderRepo.save(order));
     }
 
     public void deleteById(Long id) {

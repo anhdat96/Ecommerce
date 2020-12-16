@@ -1,5 +1,6 @@
 package com.example.demo.service.mapper;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -9,13 +10,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 public abstract class BaseMapper {
-    protected ModelMapper modelMapper;
-
-    @Bean
-    private void initMapper() {
-        modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-    }
+    protected final ModelMapper modelMapper = new ModelMapper();
 
     /**
      * @param origin   đối tượng chứa data cần transfer
@@ -26,7 +21,7 @@ public abstract class BaseMapper {
      */
     public <O, D> D tranferData(O origin, Type destType) {
         if (null == origin) return null;
-
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper.map(origin, destType);
     }
 
