@@ -35,12 +35,12 @@ public class OrderMapper extends BaseMapper {
 
             //config product of order detail
             ProductDTO productDTO = orderDetailDTO.getProducts();
-            if (productDTO!=null){
+            if (productDTO != null) {
                 productDTO.setOderDetailList(new HashSet<>());
             }
 
             ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
-            if (productCategoriesDTO!=null){
+            if (productCategoriesDTO != null) {
                 productCategoriesDTO.setProductsList(new HashSet<>());
             }
 
