@@ -21,6 +21,13 @@ public class OrderMapper extends BaseMapper {
     public OrderDTO convertToDTO(Orders order) {
         OrderDTO orderDTO = this.tranferData(order, OrderDTO.class);
 
+        this.displayConfig(orderDTO);
+
+        return orderDTO;
+    }
+
+    //region cấu hình cách hiển thị thông tin order table
+    private void displayConfig(OrderDTO orderDTO) {
         //config order detail
         for (OrderDetailDTO orderDetailDTO : orderDTO.getOderDetailList()) {
             //config order of order detail
@@ -41,9 +48,8 @@ public class OrderMapper extends BaseMapper {
                 roleDTO.setUsers(new HashSet<>());
             }
         }
-
-        return orderDTO;
     }
+    //endregion
 
     /* convert tu DTO --> Entity*/
     public Orders convertToEntity(OrderDTO orderDTO) {

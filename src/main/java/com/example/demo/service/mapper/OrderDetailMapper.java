@@ -10,24 +10,29 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class OrderDetailMapper extends BaseMapper {
     private final IProductRepository productRepo;
     private final IOrderRepository orderRepo;
-    /* convert tu entity -->DTO*/
 
+    /* convert tu entity -->DTO*/
     public OrderDetailDTO convertToDTO(OderDetail orderDetail) {
         OrderDetailDTO orderDetailDTO = this.tranferData(orderDetail, OrderDetailDTO.class);
 
+        displayConfig(orderDetailDTO);
+
+        return orderDetailDTO;
+    }
+
+    //region cấu hình cách hiển thị order detail table
+    private void displayConfig(OrderDetailDTO orderDetailDTO) {
         //config order
         orderDetailDTO.getOrders().setOderDetailList(new HashSet<>());
         UserDTO userDTO = orderDetailDTO.getOrders().getUser();
-        if (null!=userDTO){
-            for(RoleDTO roleDTO : userDTO.getRoles()){
+        if (null != userDTO) {
+            for (RoleDTO roleDTO : userDTO.getRoles()) {
                 roleDTO.setUsers(new HashSet<>());
             }
             userDTO.setOrdersList(new HashSet<>());
@@ -37,42 +42,20 @@ public class OrderDetailMapper extends BaseMapper {
         ProductDTO productDTO = orderDetailDTO.getProducts();
         productDTO.setOderDetailList(new HashSet<>());
         ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
-        if (null!=productCategoriesDTO){
+        if (null != productCategoriesDTO) {
             productCategoriesDTO.setProductsList(new HashSet<>());
         }
-
-
-        return orderDetailDTO;
     }
+    //endregion
 
     /* convert tu DTO --> Entity*/
     public OderDetail convertToEntity(OrderDetailDTO dto) {
         OderDetail entity = this.tranferData(dto, OderDetail.class);
 
-        //confirg field
-        entity.setProducts(this.getRelationRecordProduct(dto.getProduct_id()));
-        entity.setOrders(this.getRelationRecordOrder(dto.getOrder_id()));
+        //get data from id
+        entity.setProducts(this.getDataById(dto.getProduct_id(), productRepo, Products.class));
+        entity.setOrders(this.getDataById(dto.getOrder_id(), orderRepo, Orders.class));
 
         return entity;
-    }
-
-    private Orders getRelationRecordOrder(Long id) {
-        if (null == id) return null;
-        Optional<Orders> opt = orderRepo.findById(id);
-        if (opt.isPresent()) {
-            return opt.get();
-        } else {
-            return null;
-        }
-    }
-
-    private Products getRelationRecordProduct(Long id) {
-        if (null == id) return null;
-        Optional<Products> opt = productRepo.findById(id);
-        if (opt.isPresent()) {
-            return opt.get();
-        } else {
-            return null;
-        }
     }
 }
