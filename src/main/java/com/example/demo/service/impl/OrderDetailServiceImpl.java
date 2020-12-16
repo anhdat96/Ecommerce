@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,14 +21,16 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     private final OrderDetailMapper orderDetailMapper;
 
 
-    public Set<OrderDetailDTO> findAll() {
+    public List<OrderDetailDTO> findAll() {
         Set<OrderDetailDTO> set = new HashSet<>();
 
         for (OderDetail entity : orderDetailRepo.findAll()) {
             set.add(orderDetailMapper.convertToDTO(entity));
         }
 
-        return set;
+        return set.stream()
+                .sorted(Comparator.comparing(OrderDetailDTO::getDetailID))
+                .collect(Collectors.toList());
     }
 
     public OrderDetailDTO findById(Long id) {

@@ -5,6 +5,7 @@ import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IOrderRepository;
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
+import com.example.demo.service.dto.OrderDetailDTO;
 import com.example.demo.service.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,9 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +32,15 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     public List<OrderDTO> findAll() {
-        List<OrderDTO> list = new ArrayList<>();
+        Set<OrderDTO> set = new HashSet<>();
 
         for (Orders order : orderRepo.findAll()) {
-            list.add(orderMapper.convertToDTO(order));
+            set.add(orderMapper.convertToDTO(order));
         }
 
-        return list;
+        return set.stream()
+                .sorted(Comparator.comparing(OrderDTO::getOrderID))
+                .collect(Collectors.toList());
     }
 
     public OrderDTO findById(Long id) {
