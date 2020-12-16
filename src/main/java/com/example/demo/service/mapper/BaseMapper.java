@@ -51,7 +51,9 @@ public abstract class BaseMapper {
         Set<D> set = new HashSet<>();
 
         for (long id : ids) {
-            set.add(this.getDataById(id, repo, destType));
+            if (this.getDataById(id, repo, destType) != null) {
+                set.add(this.getDataById(id, repo, destType));
+            }
         }
 
         return set;

@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
-public class IOrderMapperImpl extends BaseMapper implements IOrderMapper {
+public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
     private final IOrderDetailRepository orderDetailRepo;
     private final IUserRepository userRepo;
 
@@ -34,19 +34,20 @@ public class IOrderMapperImpl extends BaseMapper implements IOrderMapper {
         //config order detail
         for (OrderDetailDTO orderDetailDTO : orderDTO.getOderDetailList()) {
             //config order of order detail
-            orderDetailDTO.setOrders(null);
+            if (orderDetailDTO != null) {
+                orderDetailDTO.setOrders(null);
 
-            //config product of order detail
-            ProductDTO productDTO = orderDetailDTO.getProducts();
-            if (productDTO != null) {
-                productDTO.setOderDetailList(new HashSet<>());
+                //config product of order detail
+                ProductDTO productDTO = orderDetailDTO.getProducts();
+                if (productDTO != null) {
+                    productDTO.setOderDetailList(new HashSet<>());
+                }
+
+                ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
+                if (productCategoriesDTO != null) {
+                    productCategoriesDTO.setProductsList(new HashSet<>());
+                }
             }
-
-            ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
-            if (productCategoriesDTO != null) {
-                productCategoriesDTO.setProductsList(new HashSet<>());
-            }
-
         }
 
         //config user
@@ -90,8 +91,10 @@ public class IOrderMapperImpl extends BaseMapper implements IOrderMapper {
 
     private void updateOrderDetailTable(Orders order) {
         for (OderDetail orderDetail : order.getOderDetailList()) {
-            orderDetail.setOrders(order);
-            orderDetailRepo.save(orderDetail);
+            if (orderDetail != null) {
+                orderDetail.setOrders(order);
+                orderDetailRepo.save(orderDetail);
+            }
         }
     }
     //endregion

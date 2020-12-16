@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
-public class IOrderDetailMapperImpl extends BaseMapper implements IOrderDetailMapper {
+public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMapper {
     private final IProductRepository productRepo;
     private final IOrderRepository orderRepo;
 

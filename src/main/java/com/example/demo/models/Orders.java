@@ -48,5 +48,4 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "userID")
     private User user;
-
 }
