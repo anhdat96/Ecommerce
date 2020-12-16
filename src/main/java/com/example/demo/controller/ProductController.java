@@ -1,5 +1,14 @@
 package com.example.demo.controller;
 
+
+import com.example.demo.service.IOrderDetailService;
+import com.example.demo.service.IProductService;
+import com.example.demo.service.dto.ProductDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import com.example.demo.models.Products;
 import com.example.demo.service.impl.ProductServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -7,51 +16,54 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
 @Slf4j
-@RequiredArgsConstructor
 public class ProductController {
-    private final ProductServiceImpl productServiceImpl;
+    @Autowired
+    IOrderDetailService oderdetailService;
 
-    @GetMapping(value = "/all_Products")
-    public List<Products> findAll() {
-        return productServiceImpl.finAll();
-    }
+    @Autowired
+    IProductService productService;
 
     @PostMapping(value = "/create")
-    public Products create(@RequestBody Products products) {
-        return productServiceImpl.save(products);
+    public ProductDTO create(@RequestBody ProductDTO productDTO) {
+        return productService.save(productDTO);
     }
 
-    @GetMapping(value = "/get-one-product/{id}")
-    public Products findById(@PathVariable Long id) {
-        Optional<Products> optionalProducts = productServiceImpl.findById(id);
+    @GetMapping("/get-all-product")
+    public List<ProductDTO> findall() {
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        return null;
+    }
+
+    @GetMapping("/get-one-product/{id}")
+    public ProductDTO findOne(@PathVariable Long id) {
+        Optional<ProductDTO> optionalProducts = productService.findById(id);
         if (!optionalProducts.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            log.error("ID " + id + " is not exist!");
         }
         return optionalProducts.get();
     }
 
-    @PutMapping(value = "/update/{id}")
-    public Products update(@PathVariable Long id, @RequestBody Products products) {
-        if (!productServiceImpl.findById(id).isPresent()) {
-            log.error("ID " + id + "is not exist");
-        }
-        return productServiceImpl.save(products);
+    @PutMapping("/update-product/{id}")
+    public ResponseEntity<ProductDTO> update(@RequestBody ProductDTO productDTO, @PathVariable Long id) {
+        ProductDTO productDTO1 = productService.update(productDTO, id);
+        return new ResponseEntity<>(productDTO1, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/delete-product/{id}")
     public void delete(@PathVariable Long id) {
-        if (!productServiceImpl.findById(id).isPresent()) {
+        if (!productService.findById(id).isPresent()) {
             log.error("ID " + id + "is not exist");
             ResponseEntity.badRequest().build();
+        } else {
+            productService.delete(id);
+            log.info("delete product " + id + " successfully");
         }
-        productServiceImpl.deleteById(id);
-
     }
 }

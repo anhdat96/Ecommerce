@@ -1,10 +1,10 @@
 package com.example.demo.repository;
 
-import com.example.demo.models.Products;
+import com.example.demo.models.OderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IProductRepository extends JpaRepository<Products, Long> {
+public interface IOderdetailReository extends JpaRepository<OderDetail, Long> {
 
 }
