@@ -5,6 +5,7 @@ import com.example.demo.service.dto.ProductCategoryDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,9 +17,10 @@ public class ProductCategoryController {
     @Autowired
     IProductCategoryService iProductCategoryService;
     @PostMapping("/create")
-    public ProductCategoryDTO save(ProductCategoryDTO productCategoryDTO){
+    public ProductCategoryDTO save(@RequestBody ProductCategoryDTO productCategoryDTO){
         return iProductCategoryService.save(productCategoryDTO);
-
     }
+
+
 
 }
