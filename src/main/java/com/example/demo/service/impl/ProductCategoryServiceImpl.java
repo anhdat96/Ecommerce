@@ -24,8 +24,11 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
     @Autowired
     IProductCategoryMapper iProductCategoryMapper;
 
+
     @Override
     public ProductCategoryDTO save(ProductCategoryDTO productCategoryDTO) {
+
+        log.debug("request to save ProductCategory ",productCategoryDTO);
         ProductCategories productCategories = iProductCategoryMapper.toEntity(productCategoryDTO);
         iProductCategoryRepository.save(productCategories);
         return iProductCategoryMapper.toDto(productCategories);
@@ -33,6 +36,7 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 
     @Override
     public Optional<ProductCategoryDTO> findById(Long id) {
+        log.debug("request to get one ProductCategory by id ",id);
         return iProductCategoryRepository.findById(id).map(iProductCategoryMapper::toDto);
     }
 
@@ -52,6 +56,11 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
 
     @Override
     public void delete(Long id) {
-
+        log.debug("request to delete ProductCategory :{}",id);
+        if(!iProductCategoryRepository.findById(id).isPresent()){
+            log.error("ID " + id + "is not exist");
+        }
+        iProductCategoryRepository.deleteById(id);
+        log.info("delete product " + id + " successfully");
     }
 }

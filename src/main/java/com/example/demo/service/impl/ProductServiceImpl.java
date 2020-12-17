@@ -1,9 +1,13 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.models.ProductCategories;
 import com.example.demo.models.Products;
 import com.example.demo.repository.IProductRepository;
+import com.example.demo.service.IProductCategoryService;
 import com.example.demo.service.IProductService;
+import com.example.demo.service.dto.ProductCategoryDTO;
 import com.example.demo.service.dto.ProductDTO;
+import com.example.demo.service.mapper.IProductCategoryMapper;
 import com.example.demo.service.mapper.IProductMapper;
 import com.example.demo.service.mapper.OderdetailMapperImpl;
 import org.slf4j.Logger;
@@ -22,50 +26,79 @@ public class ProductServiceImpl implements IProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
     @Autowired
     IProductRepository iProductRepository;
-    //    private final IProductRepository iProductRepository;
+
     @Qualifier("productMapperImpl")
     @Autowired
     IProductMapper iProductMapper;
-    //    private final IProductMapper iProductMapper;
+
     @Autowired
     OderdetailMapperImpl oderdetailMapperImpl;
 
+    @Autowired
+    IProductCategoryService iProductCategoryService;
+
+    @Autowired
+    IProductCategoryMapper iProductCategoryMapper;
+
     @Override
     public ProductDTO save(ProductDTO productDTO) {
-        log.debug("Request to save Products :{}", productDTO);
-        // convet from DTO --> Entity
-        // after save the new product to Database have to return it to client
-        // convert Entity -->Dto
-        Products products = iProductMapper.toEntity(productDTO);
-        products = iProductRepository.save(products);
-        return iProductMapper.toDto(products);
+        log.info("Request to save Products :{}", productDTO);
+        Optional<ProductCategoryDTO> productCategoryDTO = iProductCategoryService.findById(productDTO.getProductCategoryID());
+
+        if (productCategoryDTO.isPresent()) {
+            ProductCategories productCategories = iProductCategoryMapper.toEntity(productCategoryDTO.get());
+            Products products = iProductMapper.toEntity(productDTO);
+            products.setProductCategories(productCategories);
+            products = iProductRepository.save(products);
+            return iProductMapper.toDto(products);
+        }
+        log.info("can not save because this ProductCategoryID " + productDTO.getProductCategoryID() + " is not exist in table ProductCategories ");
+        return null;
+
     }
 
     @Override
-    public Optional<ProductDTO>  findById(Long id) {
-        log.debug("Request to get Product :{}", id);
-        return iProductRepository.findById(id).map(iProductMapper::toDto);
-        //Optional là 1 contaniner Object bao bọc một Object , khi object là null thì Optional trả về empty
-        // lấy được Optional<ProductDTO> của <ProductEntity>Optinal
-        //.map() trả về giá trị được map , convert tương ứng
+    public Optional<ProductDTO> findById(Long id) {
+        log.info("Request to get one Product :{}", id);
+        Optional<Products> optionalProducts = iProductRepository.findById(id);
+        if (!optionalProducts.isPresent()) {
+            log.info("ID " + id + " is not exist!");
+            return null;
+        }
+        return optionalProducts.map(iProductMapper::toDto);
+
     }
 
 
     @Override
     public ProductDTO update(ProductDTO productDTO, Long id) {
-        log.debug("Request to update Product :{}", id);
-        Products products1 = iProductRepository.findById(id).get();
-        if (products1.getProductID() == id) {
-            products1 = iProductMapper.toEntity(productDTO);
-            products1 = iProductRepository.save(products1);
-            return iProductMapper.toDto(products1);
+        log.info("Request to update Product :{}", id);
+        Optional<Products> products1 = iProductRepository.findById(productDTO.getProductID());
+        if (products1.isPresent() ) {
+            Optional<ProductCategoryDTO> productCategoryDTO = iProductCategoryService.findById(productDTO.getProductCategoryID());
+            if(productCategoryDTO.isPresent()){
+                ProductCategories productCategories = iProductCategoryMapper.toEntity(productCategoryDTO.get());
+                Products products = iProductMapper.toEntity(productDTO);
+                products.setProductCategories(productCategories);
+                   Products products2 =  iProductRepository.save(products);
+                return iProductMapper.toDto(products2);
+            }
+            log.info("can not save because this ProductCategoryID " + productDTO.getProductCategoryID() + " is not exist in table ProductCategories ");
+            return null;
+
         }
-        log.debug("can not find this " + id);
+        log.info("can not find this " + id);
         return null;
     }
 
     @Override
     public void delete(Long id) {
+        if (!iProductRepository.findById(id).isPresent()) {
+            log.info("ID " + id + "is not exist");
+        } else {
+            iProductRepository.deleteById(id);
+            log.info("delete product " + id + " successfully");
+        }
 
     }
 }

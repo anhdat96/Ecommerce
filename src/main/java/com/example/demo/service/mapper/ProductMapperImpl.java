@@ -39,7 +39,6 @@ public class ProductMapperImpl implements IProductMapper {
         productDTO.setProductName(productEntity.getProductName());
         productDTO.setProductThumb(productEntity.getProductThumb());
         productDTO.setStatus(productEntity.getStatus());
-        productDTO.setProductCategoryID(productEntity.getProductCategoryID());
         productDTO.setProductPrice(productEntity.getProductPrice());
         productDTO.setDetailID(productEntity.getProductID());
 
@@ -54,7 +53,6 @@ public class ProductMapperImpl implements IProductMapper {
         Products products = new Products();
 
         products.setProductID(productDTO.getProductID());
-        products.setProductCategoryID(productDTO.getProductCategoryID());
         products.setProductCode(productDTO.getProductCode());
         products.setProductImage(productDTO.getProductImage());
         products.setProductName(productDTO.getProductName());

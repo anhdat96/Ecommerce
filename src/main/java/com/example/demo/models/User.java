@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -51,6 +52,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
             joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private List<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orderList = new ArrayList<>();
 
 
 }

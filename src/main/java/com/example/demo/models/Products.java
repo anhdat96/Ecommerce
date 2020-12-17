@@ -10,13 +10,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
-@ToString
 public class Products extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +28,6 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     private String productPrice;
     @Column(name = "productImage")
     private String productImage;
-    @Column(name = "productCategoryID")
-    private Long productCategoryID;
     @Column(name = "productThumb")
     private String productThumb;
     @Column(name = "productDescription")
@@ -43,7 +41,12 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     private List<OderDetail> oderDetailList = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "categoryID")
+    @JoinColumn(name = "categoryID",nullable = false)
+    // categoryID là khóa ngoại trươc khi update phai kiểm tra categoryID có tồn tại trong bảng productcategories hay không
+    // nếu không có không cho update , thêm trường này trong DTO
     private ProductCategories productCategories;
+
+
+
 
 }
