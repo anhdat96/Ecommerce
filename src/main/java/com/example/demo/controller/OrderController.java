@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
-import com.example.demo.service.impl.OrderServiceImpl;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -11,36 +12,36 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orders")
-@Slf4j
-@RequiredArgsConstructor
 public class OrderController {
-    private final OrderServiceImpl orderServiceImpl;
+    @Autowired
+    @Qualifier("orderServiceImpl")
+    private IOrderService orderService;
 
     @PostMapping(value = "/create")
     @Transactional
     public OrderDTO create(@RequestBody OrderDTO orderDTO) {
-        return orderServiceImpl.save(orderDTO);
+        return orderService.save(orderDTO);
     }
 
     @GetMapping(value = "/get-all")
     public List<OrderDTO> findAll() {
-        return orderServiceImpl.findAll();
+        return orderService.findAll();
     }
 
     @GetMapping(value = "/get-one")
     public OrderDTO findById(@RequestParam Long id) {
-        return orderServiceImpl.findById(id);
+        return orderService.findById(id);
     }
 
     @PutMapping(value = "/update")
     @Transactional
     public OrderDTO update(@RequestParam Long id, @RequestBody OrderDTO orderDTO) {
-        return orderServiceImpl.update(id, orderDTO);
+        return orderService.update(id, orderDTO);
     }
 
     @DeleteMapping(value = "/delete")
     @Transactional
     public void delete(@RequestParam Long id) {
-        orderServiceImpl.deleteById(id);
+        orderService.deleteById(id);
     }
 }

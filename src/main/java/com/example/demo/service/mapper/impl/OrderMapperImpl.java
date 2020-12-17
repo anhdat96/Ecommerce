@@ -9,15 +9,18 @@ import com.example.demo.service.dto.*;
 import com.example.demo.service.mapper.BaseMapper;
 import com.example.demo.service.mapper.IOrderMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
-@Service
-@RequiredArgsConstructor
+@Component
 public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
-    private final IOrderDetailRepository orderDetailRepo;
-    private final IUserRepository userRepo;
+    @Autowired
+    private IOrderDetailRepository orderDetailRepo;
+    @Autowired
+    private IUserRepository userRepo;
 
     /* convert tu entity -->DTO*/
     @Override

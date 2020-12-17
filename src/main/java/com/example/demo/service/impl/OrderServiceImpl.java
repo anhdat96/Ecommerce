@@ -8,6 +8,7 @@ import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.mapper.IOrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +16,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class OrderServiceImpl implements IOrderService {
-    private final IOrderRepository orderRepo;
-    private final IOrderMapper orderMapper;
-    private final IOrderDetailRepository orderDetailRepo;
+    @Autowired
+    private IOrderRepository orderRepo;
+    @Autowired
+    private IOrderMapper orderMapper;
+    @Autowired
+    private IOrderDetailRepository orderDetailRepo;
 
+    @Override
     public OrderDTO save(OrderDTO orderDTO) {
         Orders order = orderRepo.save(orderMapper.convertToEntity(orderDTO));
 
         return orderMapper.convertToDTO(order);
     }
 
+    @Override
     public List<OrderDTO> findAll() {
         Set<OrderDTO> set = new HashSet<>();
 
@@ -40,6 +45,7 @@ public class OrderServiceImpl implements IOrderService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public OrderDTO findById(Long id) {
         Optional<Orders> opt = orderRepo.findById(id);
         if (!opt.isPresent()) {
@@ -50,6 +56,7 @@ public class OrderServiceImpl implements IOrderService {
         return orderMapper.convertToDTO(opt.get());
     }
 
+    @Override
     public OrderDTO update(Long id, OrderDTO orderDTO) {
         this.findById(id);
 
@@ -58,6 +65,7 @@ public class OrderServiceImpl implements IOrderService {
         return orderMapper.convertToDTO(orderRepo.save(order));
     }
 
+    @Override
     public void deleteById(Long id) {
         orderDetailRepo.deleteAll(orderRepo.getOne(id).getOderDetailList());
         orderRepo.deleteById(id);

@@ -5,8 +5,8 @@ import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.service.IOrderDetailService;
 import com.example.demo.service.dto.OrderDetailDTO;
 import com.example.demo.service.mapper.IOrderDetailMapper;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,20 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
 public class OrderDetailServiceImpl implements IOrderDetailService {
-    private final IOrderDetailRepository orderDetailRepo;
-    private final IOrderDetailMapper orderDetailMapper;
+    @Autowired
+    private IOrderDetailRepository orderDetailRepo;
+    @Autowired
+    private IOrderDetailMapper orderDetailMapper;
 
+    @Override
+    public OrderDetailDTO save(OrderDetailDTO dto) {
+        OderDetail entity = orderDetailRepo.save(orderDetailMapper.convertToEntity(dto));
 
+        return orderDetailMapper.convertToDTO(entity);
+    }
+
+    @Override
     public List<OrderDetailDTO> findAll() {
         Set<OrderDetailDTO> set = new HashSet<>();
 
@@ -33,6 +41,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public OrderDetailDTO findById(Long id) {
         Optional<OderDetail> optionalOrderDetail = orderDetailRepo.findById(id);
         if (!optionalOrderDetail.isPresent()) {
@@ -43,20 +52,16 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
     }
 
-    public OrderDetailDTO save(OrderDetailDTO dto) {
-        OderDetail entity = orderDetailRepo.save(orderDetailMapper.convertToEntity(dto));
-
-        return orderDetailMapper.convertToDTO(entity);
-    }
-
-    public void deleteById(Long id) {
-        orderDetailRepo.deleteById(id);
-    }
-
+    @Override
     public OrderDetailDTO update(Long id, OrderDetailDTO dto) {
         findById(id);
 
         dto.setDetailID(id);
         return save(dto);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        orderDetailRepo.deleteById(id);
     }
 }
