@@ -7,7 +7,7 @@ import com.example.demo.repository.IOrderRepository;
 import com.example.demo.repository.IProductRepository;
 import com.example.demo.service.dto.*;
 import com.example.demo.service.mapper.BaseMapper;
-import com.example.demo.service.mapper.IOrderDetailMapper;
+import com.example.demo.service.mapper.OrderDetailMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
