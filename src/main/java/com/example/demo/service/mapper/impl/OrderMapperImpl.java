@@ -8,10 +8,8 @@ import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.dto.*;
 import com.example.demo.service.mapper.BaseMapper;
 import com.example.demo.service.mapper.IOrderMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
@@ -46,9 +44,9 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
                     productDTO.setOderDetailList(new HashSet<>());
                 }
 
-                ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
-                if (productCategoriesDTO != null) {
-                    productCategoriesDTO.setProductsList(new HashSet<>());
+                ProductCategoryDTO productCategoryDTO = productDTO.getProductCategories();
+                if (productCategoryDTO != null) {
+                    productCategoryDTO.setProductsList(new HashSet<>());
                 }
             }
         }

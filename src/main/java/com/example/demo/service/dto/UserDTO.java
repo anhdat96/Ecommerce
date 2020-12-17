@@ -1,6 +1,5 @@
 package com.example.demo.service.dto;
 
-import com.example.demo.models.AbstractAuditingEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class UserDTO extends AbstractAuditingEntity implements Serializable {
+public class UserDTO implements Serializable {
     private Long userID;
     private String userEmail;
     private String userPassword;

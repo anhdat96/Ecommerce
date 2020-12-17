@@ -27,7 +27,7 @@ public class ProductDTO implements Serializable {
     private String productCode;
     private Integer status;
     private Set<OrderDetailDTO> oderDetailList = new HashSet<>();
-    private ProductCategoriesDTO productCategories;
+    private ProductCategoryDTO productCategories;
 
     // khai bao id cua quan he
     private Long detailID;

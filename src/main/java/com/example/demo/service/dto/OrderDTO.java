@@ -1,6 +1,5 @@
 package com.example.demo.service.dto;
 
-import com.example.demo.models.AbstractAuditingEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class OrderDTO extends AbstractAuditingEntity implements Serializable {
+public class OrderDTO implements Serializable {
     private Long orderID;
     private Long orderUserID;
     private Float orderAmount;

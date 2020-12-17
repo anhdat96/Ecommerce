@@ -45,9 +45,9 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
         //config product
         ProductDTO productDTO = orderDetailDTO.getProducts();
         productDTO.setOderDetailList(new HashSet<>());
-        ProductCategoriesDTO productCategoriesDTO = productDTO.getProductCategories();
-        if (null != productCategoriesDTO) {
-            productCategoriesDTO.setProductsList(new HashSet<>());
+        ProductCategoryDTO productCategoryDTO = productDTO.getProductCategories();
+        if (null != productCategoryDTO) {
+            productCategoryDTO.setProductsList(new HashSet<>());
         }
     }
     //endregion
