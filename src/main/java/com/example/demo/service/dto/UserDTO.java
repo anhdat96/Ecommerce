@@ -32,4 +32,5 @@ public class UserDTO {
     private String userCountry;
 
     private Instant dateOfBirth;
+
 }

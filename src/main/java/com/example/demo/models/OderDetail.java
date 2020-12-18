@@ -41,6 +41,7 @@ public class OderDetail extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "orderID",nullable = false)
+    @JsonIgnore
     private Orders orders;
 
 
