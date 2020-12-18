@@ -6,10 +6,16 @@ import com.example.demo.service.IOrderDetailService;
 import com.example.demo.service.dto.OrderDetailDTO;
 import com.example.demo.service.mapper.IOrderDetailMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,6 +26,8 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     private IOrderDetailRepository orderDetailRepo;
     @Autowired
     private IOrderDetailMapper orderDetailMapper;
+
+
 
     @Override
     public OrderDetailDTO save(OrderDetailDTO dto) {
@@ -50,6 +58,13 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         }
 
         return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
+    }
+
+    @PersistenceContext
+    private EntityManager manager;
+    @Override
+    public List<OrderDetailDTO> findByDetailName(String name) {
+        return null;
     }
 
     @Override

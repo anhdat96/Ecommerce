@@ -11,6 +11,8 @@ public interface IOrderDetailService {
 
     OrderDetailDTO findById(Long id);
 
+    List<OrderDetailDTO> findByDetailName(String name);
+
     OrderDetailDTO update(Long id, OrderDetailDTO dto);
 
     void deleteById(Long id);
