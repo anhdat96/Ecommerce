@@ -31,6 +31,11 @@ public class OrderDetailController {
         return orderDetailService.findById(id);
     }
 
+    @GetMapping(value = "/get-by-name")
+    public List<OrderDetailDTO> findById(@RequestParam String name) {
+        return orderDetailService.findByDetailName(name);
+    }
+
     @PutMapping(value = "/update")
     public OrderDetailDTO update(@RequestParam Long id, @RequestBody OrderDetailDTO dto) {
         return orderDetailService.update(id, dto);

@@ -11,7 +11,9 @@ import com.example.demo.service.mapper.IOrderDetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 @Component
 public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMapper {
@@ -28,6 +30,17 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
         displayConfig(orderDetailDTO);
 
         return orderDetailDTO;
+    }
+
+    @Override
+    public List<OrderDetailDTO> convertToDTO(List<OderDetail> orderDetails) {
+        List<OrderDetailDTO> list = new ArrayList<>();
+
+        for (OderDetail oderDetail : orderDetails){
+            list.add(this.convertToDTO(oderDetail));
+        }
+
+        return list;
     }
 
     //region cấu hình cách hiển thị order detail table

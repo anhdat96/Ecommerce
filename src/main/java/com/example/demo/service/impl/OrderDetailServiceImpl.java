@@ -8,6 +8,8 @@ import com.example.demo.service.mapper.IOrderDetailMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.SessionImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,7 +32,6 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     private IOrderDetailRepository orderDetailRepo;
     @Autowired
     private IOrderDetailMapper orderDetailMapper;
-
 
 
     @Override
@@ -61,10 +66,19 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     }
 
     @PersistenceContext
-    private EntityManager manager;
+    private EntityManager em;
     @Override
     public List<OrderDetailDTO> findByDetailName(String name) {
-        return null;
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<OderDetail> cq = cb.createQuery(OderDetail.class);
+        // tạo query
+        Root<OderDetail> root = cq.from(OderDetail.class);
+        /*cq.select(root)
+                .where(cb.like(
+                        root.get()
+                ));*/
+
+        return orderDetailMapper.convertToDTO(em.createQuery(cq).getResultList());
     }
 
     @Override

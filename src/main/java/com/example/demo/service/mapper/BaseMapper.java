@@ -46,7 +46,7 @@ public abstract class BaseMapper {
         }
     }
 
-    public <D, O, R extends JpaRepository<O, Long>> Set<D> getSetDataByIds(List<Long> ids, R repo, Type destType) {
+    public <D, O, R extends JpaRepository<O, Long>> Set<D> getDataById(List<Long> ids, R repo, Type destType) {
         ids = null == ids ? new ArrayList<>() : ids;
         Set<D> set = new HashSet<>();
 
@@ -59,7 +59,7 @@ public abstract class BaseMapper {
         return set;
     }
 
-    public <O, D> Set<D> tranferSetData(Set<O> orginList, Type destType) {
+    public <O, D> Set<D> tranferData(Set<O> orginList, Type destType) {
         Set<D> set = new HashSet<>();
 
         for (O origin : orginList) {
