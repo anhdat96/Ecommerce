@@ -21,6 +21,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,16 +68,17 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 
     @PersistenceContext
     private EntityManager em;
+
     @Override
-    public List<OrderDetailDTO> findByDetailName(String name) {
+    public List<OrderDetailDTO> findByDetailName(final String fieldName,String name) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<OderDetail> cq = cb.createQuery(OderDetail.class);
         // tạo query
         Root<OderDetail> root = cq.from(OderDetail.class);
-        /*cq.select(root)
+        cq.select(root)
                 .where(cb.like(
-                        root.get()
-                ));*/
+                        root.get(fieldName), "%" + name + "%"
+                ));
 
         return orderDetailMapper.convertToDTO(em.createQuery(cq).getResultList());
     }

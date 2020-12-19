@@ -33,7 +33,7 @@ public class OrderDetailController {
 
     @GetMapping(value = "/get-by-name")
     public List<OrderDetailDTO> findById(@RequestParam String name) {
-        return orderDetailService.findByDetailName(name);
+        return orderDetailService.findByDetailName("detailName", name);
     }
 
     @PutMapping(value = "/update")

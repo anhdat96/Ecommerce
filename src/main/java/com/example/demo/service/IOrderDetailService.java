@@ -11,7 +11,7 @@ public interface IOrderDetailService {
 
     OrderDetailDTO findById(Long id);
 
-    List<OrderDetailDTO> findByDetailName(String name);
+    List<OrderDetailDTO> findByDetailName(final String fieldName, String name);
 
     OrderDetailDTO update(Long id, OrderDetailDTO dto);
 
