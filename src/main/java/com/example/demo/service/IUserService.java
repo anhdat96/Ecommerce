@@ -1,7 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.models.User;
-import com.example.demo.service.dto.ProductDTO;
 import com.example.demo.service.dto.UserDTO;
 
 import java.util.Optional;

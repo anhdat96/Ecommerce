@@ -5,6 +5,7 @@ import com.example.demo.repository.IUserRepository;
 import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.IUserMapper;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
-    @Autowired
-    IUserMapper iUserMapper;
+    private final IUserMapper iUserMapper;
     @Autowired
     IUserRepository iUserRepository;
 
