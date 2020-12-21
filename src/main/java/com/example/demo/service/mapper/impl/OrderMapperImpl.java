@@ -68,36 +68,9 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
     public Orders convertToEntity(OrderDTO orderDTO) {
         Orders order = this.tranferData(orderDTO, Orders.class);
 
-        order.setOderDetailList(this.getSetDataByIds(orderDTO.getOrderDetail_ids(), orderDetailRepo, OderDetail.class));
+        order.setOderDetailList(this.getDataById(orderDTO.getOrderDetail_ids(), orderDetailRepo, OderDetail.class));
         order.setUser(this.getDataById(orderDTO.getUser_id(), userRepo, User.class));
-        this.updateRelationTable(order);
 
         return order;
     }
-
-    //region inner convertToEntity methods
-    private void updateRelationTable(Orders order) {
-        this.updateOrderDetailTable(order);
-        this.updateUserTable(order);
-    }
-
-    //region inner updateRelationTable methods
-    private void updateUserTable(Orders order) {
-        User user = order.getUser();
-        if (null != user) {
-            user.getOrdersList().add(order);
-            userRepo.save(user);
-        }
-    }
-
-    private void updateOrderDetailTable(Orders order) {
-        for (OderDetail orderDetail : order.getOderDetailList()) {
-            if (orderDetail != null) {
-                orderDetail.setOrders(order);
-                orderDetailRepo.save(orderDetail);
-            }
-        }
-    }
-    //endregion
-    //endregion
 }

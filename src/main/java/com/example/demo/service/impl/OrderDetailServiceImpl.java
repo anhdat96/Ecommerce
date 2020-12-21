@@ -60,8 +60,6 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
     }
 
-    @PersistenceContext
-    private EntityManager manager;
     @Override
     public List<OrderDetailDTO> findByDetailName(String name) {
         return null;
