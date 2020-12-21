@@ -1,12 +1,10 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
 import java.io.Serializable;

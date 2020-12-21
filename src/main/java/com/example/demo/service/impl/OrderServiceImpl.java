@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.models.Orders;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrdersDTO;
 import com.example.demo.service.mapper.IOrdersMapper;
@@ -29,7 +29,7 @@ public class OrderServiceImpl implements IOrderService {
     IOrdersMapper iOrdersMapper;
 
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository iUserRepository;
 
     @Autowired
     IUserMapper iUserMapper;

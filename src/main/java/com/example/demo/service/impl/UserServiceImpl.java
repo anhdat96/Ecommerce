@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.models.User;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.IUserMapper;
@@ -20,7 +20,7 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     IUserMapper iUserMapper;
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository iUserRepository;
 
     @Override
     public UserDTO save(UserDTO userDTO) {

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /*spring data repository for the Product*/
 
 
-@Repository
+
 public interface IProductRepository extends JpaRepository<Products, Long> {
 
     // only have JPA methods

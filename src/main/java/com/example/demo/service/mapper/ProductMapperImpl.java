@@ -2,7 +2,7 @@ package com.example.demo.service.mapper;
 
 import com.example.demo.models.Products;
 import com.example.demo.service.dto.ProductDTO;
-import org.modelmapper.ModelMapper;
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,21 +10,7 @@ import java.util.List;
 @Component
 public class ProductMapperImpl implements IProductMapper {
 
-    ModelMapper modelMapper = new ModelMapper();
-   /* convert tu entity -->DTO*/
 
-    public ProductDTO convertToDTO(Products products){
-        ProductDTO productDTO = modelMapper.map(products,ProductDTO.class);
-        return productDTO;
-    }
-
-   /* convert tu DTO --> Entity*/
-    public Products convertToEntity(ProductDTO productDTO){
-    Products productsEntity = modelMapper.map(productDTO,Products.class);
-    return productsEntity;
-    }
-
-    // cach 2
 
     @Override
     public ProductDTO toDto(Products productEntity) {
