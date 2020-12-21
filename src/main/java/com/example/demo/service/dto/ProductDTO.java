@@ -28,6 +28,6 @@ public class ProductDTO implements Serializable {
     private Integer status;
     private List<Long> orderDetail_ids;
     private Set<OrderDetailDTO> oderDetailList = new HashSet<>();
-    private Long productCategoryId;
+    private Long productCategory_id;
     private ProductCategoryDTO productCategories;
 }
