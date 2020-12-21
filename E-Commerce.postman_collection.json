@@ -1,0 +1,1181 @@
+{
+	"info": {
+		"_postman_id": "832961e9-f167-449e-b7ea-df28b7e56a57",
+		"name": "E-Commerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "[Create]Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderDetail_ids\": [\r\n        2,\r\n        3\r\n    ],\r\n    \"productCategoryID\": 2,\r\n    \"productCategory_id\": 2,\r\n    \"productCode\": \"PROD CODE\",\r\n    \"productDescription\": \"Description of Product\",\r\n    \"productImage\": \"Image of Product\",\r\n    \"productName\": \"Name of Product\",\r\n    \"productPrice\": \"9.69\",\r\n    \"productThumb\": \"Thumb of Product\",\r\n    \"status\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find All]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find One]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/get-one?id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Update]",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderDetail_ids\": [\r\n        1,\r\n        4\r\n    ],\r\n    \"productCategoryID\": 2,\r\n    \"productCategory_id\": 1,\r\n    \"productCode\": \"PROD CODE\",\r\n    \"productDescription\": \"Description of Product\",\r\n    \"productImage\": \"Image of Product\",\r\n    \"productName\": \"Name of Product\",\r\n    \"productPrice\": \"9.69\",\r\n    \"productThumb\": \"Thumb of Product\",\r\n    \"status\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/update?id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delete]",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2.69,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/products/delete?id=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "[Create] Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderAmount\": 0,\r\n    \"orderCity\": \"City of Oder\",\r\n    \"orderCountry\": \"Country of Order\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\",\r\n    \"orderDetail_ids\": [\r\n        1,\r\n        10\r\n    ],\r\n    \"orderEmail\": \"order@email.com\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderShipAddress\": \"Ship Address\",\r\n    \"orderShipName\": \"Ship Name\",\r\n    \"user_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Order] Find All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Order] Find One by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/get-one?id=26",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "26"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Order] Update One by Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderAmount\": 0,\r\n    \"orderCity\": \"string\",\r\n    \"orderCountry\": \"string\",\r\n    \"orderDate\": \"2019-07-30T10:52:34.865Z\",\r\n    \"orderDetail_ids\": [\r\n        7,\r\n        8\r\n    ],\r\n    \"orderEmail\": \"string\",\r\n    \"orderPhone\": \"string\",\r\n    \"orderShipAddress\": \"string\",\r\n    \"orderShipName\": \"string\",\r\n    \"orderUserID\": 0,\r\n    \"user_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/update?id=21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "21"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Order] Delete One by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2.69,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/orders/delete?id=21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "21"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Order Detail",
+			"item": [
+				{
+					"name": "[Create]Mandatory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"detailName\": \"Detail Name\",\r\n    \"detailPrice\": 10.9,\r\n    \"order_id\": 1,\r\n    \"product_id\": 1,\r\n    \"quantity\": 89\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OrderDetail] Find All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/get-all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OrderDetail] Find One by Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/get-one?id=15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OrderDetail] Update One by Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2.69,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\",\r\n    \"order_id\": 1,\r\n    \"product_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/update?id=15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[OrderDetail] Delete One by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderUserID\": 1,\r\n    \"orderAmount\": 2.69,\r\n    \"orderShipAddress\": \"Address\",\r\n    \"orderShipName\": \"Name\",\r\n    \"orderCity\": \"City\",\r\n    \"orderCountry\": \"Country\",\r\n    \"orderPhone\": \"123-456-7890\",\r\n    \"orderEmail\": \"test@gmail.com\",\r\n    \"orderDate\": \"2020-03-21T10:37:30.00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/delete?id=18",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Create]Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"detailName\": \"Detail Name\",\r\n    \"detailPrice\": 10.9,\r\n    \"order_id\": 1,\r\n    \"product_id\": 1,\r\n    \"quantity\": 89\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/order-detail/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"order-detail",
+								"create"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Role",
+			"item": [
+				{
+					"name": "[Create]Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer\",\r\n    \"manager\": \"Manager\",\r\n    \"user_ids\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Create]Mandatory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer\",\r\n    \"manager\": \"Manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find All]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer\",\r\n    \"manager\": \"Manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/get-all",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find One]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer\",\r\n    \"manager\": \"Manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/get-one?id=73",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "73"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Update]",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer Role\",\r\n    \"manager\": \"Manager Role\",\r\n    \"user_ids\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/update?id=73",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "73"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delete]",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customer\": \"Customer Role\",\r\n    \"manager\": \"Manager Role\",\r\n    \"user_ids\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/roles/delete?id=73",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"roles",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "73"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "[CREATE]MANDATORY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"2017-03-14T06:16:32.621Z\",\r\n    \"gender\": \"male\",\r\n    \"userAddress\": \"Address\",\r\n    \"userCity\": \"City\",\r\n    \"userCountry\": \"Country\",\r\n    \"userEmail\": \"user@email.com\",\r\n    \"userFirstName\": \"First\",\r\n    \"userLastName\": \"Last\",\r\n    \"userPassword\": \"Pass\",\r\n    \"userPhone\": \"123-456-7890\",\r\n    \"userState\": \"State\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[CREATE]Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"2017-03-14T06:16:32.621Z\",\r\n    \"gender\": \"male\",\r\n    \"order_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"role_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"userAddress\": \"Address\",\r\n    \"userCity\": \"City\",\r\n    \"userCountry\": \"Country\",\r\n    \"userEmail\": \"user@email.com\",\r\n    \"userFirstName\": \"First\",\r\n    \"userLastName\": \"Last\",\r\n    \"userPassword\": \"Pass\",\r\n    \"userPhone\": \"123-456-7890\",\r\n    \"userState\": \"State\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find All]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"2017-03-14T06:16:32.621Z\",\r\n    \"gender\": \"male\",\r\n    \"order_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"role_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"userAddress\": \"Address\",\r\n    \"userCity\": \"City\",\r\n    \"userCountry\": \"Country\",\r\n    \"userEmail\": \"user@email.com\",\r\n    \"userFirstName\": \"First\",\r\n    \"userLastName\": \"Last\",\r\n    \"userPassword\": \"Pass\",\r\n    \"userPhone\": \"123-456-7890\",\r\n    \"userState\": \"State\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/get-all",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find One]",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"2017-03-14T06:16:32.621Z\",\r\n    \"gender\": \"male\",\r\n    \"order_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"role_ids\": [\r\n        1,\r\n        2\r\n    ],\r\n    \"userAddress\": \"Address\",\r\n    \"userCity\": \"City\",\r\n    \"userCountry\": \"Country\",\r\n    \"userEmail\": \"user@email.com\",\r\n    \"userFirstName\": \"First\",\r\n    \"userLastName\": \"Last\",\r\n    \"userPassword\": \"Pass\",\r\n    \"userPhone\": \"123-456-7890\",\r\n    \"userState\": \"State\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/get-one?id=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Update]",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"dateOfBirth\": \"2017-03-14T06:16:32.621Z\",\r\n    \"gender\": \"male\",\r\n    \"order_ids\": [\r\n        6,\r\n        7\r\n    ],\r\n    \"role_ids\": [\r\n        6,\r\n        7\r\n    ],\r\n    \"userAddress\": \"Address of User\",\r\n    \"userCity\": \"City of User\",\r\n    \"userCountry\": \"Country of User\",\r\n    \"userEmail\": \"user@email.com\",\r\n    \"userFirstName\": \"First User\",\r\n    \"userLastName\": \"Last User\",\r\n    \"userPassword\": \"Pass\",\r\n    \"userPhone\": \"123-456-7890\",\r\n    \"userState\": \"State\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/update?id=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delete]",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/users/delete?id=4",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Product Categories",
+			"item": [
+				{
+					"name": "[Create] Optional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\": \"Category Name\",\r\n    \"product_ids\": [\r\n        1,\r\n        2,\r\n        3\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/product-categories/create",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product-categories",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find All]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/product-categories/get-all",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product-categories",
+								"get-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Find One]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/product-categories/get-one?id=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product-categories",
+								"get-one"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Update]",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryName\": \"Category Of Name\",\r\n    \"product_ids\": [\r\n        4,\r\n        5\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:8080/api/product-categories/update?id=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product-categories",
+								"update"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[Delete]",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:8080/api/product-categories/delete?id=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"product-categories",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
