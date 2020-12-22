@@ -7,6 +7,8 @@ import com.example.demo.service.dto.OrderDetailDTO;
 import com.example.demo.service.mapper.IOrderDetailMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -35,27 +37,30 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     }
 
     @Override
-    public List<OrderDetailDTO> findAll() {
-        Set<OrderDetailDTO> set = new HashSet<>();
-
-        for (OderDetail entity : orderDetailRepo.findAll()) {
-            set.add(orderDetailMapper.convertToDTO(entity));
+    public List<OrderDetailDTO> findAll(Integer page, Integer size){
+        List<OrderDetailDTO> list = new ArrayList<>();
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "detailID"));
+        for (OderDetail entity : orderDetailRepo.findAll(pageRQ)) {
+            list.add(orderDetailMapper.convertToDTO(entity));
         }
 
-        return set.stream()
-                .sorted(Comparator.comparing(OrderDetailDTO::getDetailID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public OrderDetailDTO findById(Long id) {
-        Optional<OderDetail> optionalOrderDetail = orderDetailRepo.findById(id);
-        if (!optionalOrderDetail.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+        Optional<OderDetail> opt = orderDetailRepo.findById(id);
+        if (!opt.isPresent()) {
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
-        return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
+        return orderDetailMapper.convertToDTO(opt.get());
     }
 
     @PersistenceContext

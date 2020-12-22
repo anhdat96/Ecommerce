@@ -39,12 +39,16 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
     private void getIdFromOrderDetailTable(Orders input, OrderDTO output) {
         output.setOrderDetailIds(new ArrayList<>());
 
-        for (OderDetail detail : input.getOderDetailList()){
+        for (OderDetail detail : input.getOderDetailList()) {
+            if (null == detail) continue;
             output.getOrderDetailIds().add(detail.getDetailID());
         }
     }
 
     private void getIdFromUserTable(Orders input, OrderDTO output) {
+        User user = input.getUser();
+        if (null == user) return;
+
         output.setUserId(input.getUser().getUserID());
     }
     //endregion

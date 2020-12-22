@@ -25,8 +25,11 @@ public class ProductController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<ProductDTO> findAll() {
-        return productService.findAll();
+    public List<ProductDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return productService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")

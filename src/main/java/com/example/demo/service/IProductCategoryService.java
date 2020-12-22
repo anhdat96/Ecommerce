@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductCategoryService {
     ProductCategoryDTO save(ProductCategoryDTO productCategoryDTO);
 
-    List<ProductCategoryDTO> findAll();
+    List<ProductCategoryDTO> findAll(Integer page, Integer size);
 
     ProductCategoryDTO findById(Long id);
 

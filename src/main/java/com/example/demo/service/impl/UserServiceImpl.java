@@ -11,6 +11,8 @@ import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.IUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -64,24 +66,27 @@ public class UserServiceImpl implements IUserService {
     //endregion
 
     @Override
-    public List<UserDTO> findAll() {
-        Set<UserDTO> set = new HashSet<>();
-
-        for (User user : userRepo.findAll()) {
-            set.add(userMapper.convertToDTO(user));
+    public List<UserDTO> findAll(Integer page, Integer size) {
+        List<UserDTO> list = new ArrayList<>();
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "userID"));
+        for (User user : userRepo.findAll(pageRQ)) {
+            list.add(userMapper.convertToDTO(user));
         }
 
-        return set.stream()
-                .sorted(Comparator.comparing(UserDTO::getUserID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public UserDTO findById(Long id) {
         Optional<User> opt = userRepo.findById(id);
         if (!opt.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
         return userMapper.convertToDTO(opt.get());

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserService {
     UserDTO save(UserDTO userDTO);
 
-    List<UserDTO> findAll();
+    List<UserDTO> findAll(Integer page, Integer size);
 
     UserDTO findById(Long id);
 

@@ -11,6 +11,8 @@ import com.example.demo.service.mapper.IUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -49,24 +51,27 @@ public class ProductServiceImpl implements IProductService {
     //endregion
 
     @Override
-    public List<ProductDTO> findAll() {
-        Set<ProductDTO> set = new HashSet<>();
-
-        for (Products product : productRepo.findAll()) {
-            set.add(productMapper.convertToDTO(product));
+    public List<ProductDTO> findAll(Integer page, Integer size) {
+        List<ProductDTO> list = new ArrayList<>();
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "productID"));
+        for (Products product : productRepo.findAll(pageRQ)) {
+            list.add(productMapper.convertToDTO(product));
         }
 
-        return set.stream()
-                .sorted(Comparator.comparing(ProductDTO::getProductID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public ProductDTO findById(Long id) {
         Optional<Products> opt = productRepo.findById(id);
         if (!opt.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
         return productMapper.convertToDTO(opt.get());

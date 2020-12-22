@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -26,22 +27,16 @@ public class OrderController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<OrderDTO> findAll() {
-        return orderService.findAll();
+    public List<OrderDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return orderService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")
     public OrderDTO findById(@RequestParam Long id) {
         return orderService.findById(id);
-    }
-
-    @GetMapping(value = "/read")
-    public List<OrderDTO> find(@RequestParam(required = false) Long id) {
-        if (null == id) {
-            return orderService.findAll();
-        } else {
-            return Collections.singletonList(orderService.findById(id));
-        }
     }
 
     @PutMapping(value = "/update")

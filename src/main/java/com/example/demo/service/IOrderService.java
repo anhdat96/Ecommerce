@@ -7,7 +7,7 @@ import java.util.List;
 public interface IOrderService {
     OrderDTO save(OrderDTO orderDTO);
 
-    List<OrderDTO> findAll();
+    List<OrderDTO> findAll(Integer page, Integer size);
 
     OrderDTO findById(Long id);
 

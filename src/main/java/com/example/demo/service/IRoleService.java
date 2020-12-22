@@ -8,7 +8,7 @@ import java.util.List;
 public interface IRoleService {
     RoleDTO save(RoleDTO roleDTO);
 
-    List<RoleDTO> findAll();
+    List<RoleDTO> findAll(Integer page, Integer size);
 
     RoleDTO findById(Long id);
 

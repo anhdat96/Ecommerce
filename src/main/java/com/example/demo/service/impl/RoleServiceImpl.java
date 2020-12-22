@@ -15,6 +15,8 @@ import com.example.demo.service.mapper.IOrderMapper;
 import com.example.demo.service.mapper.IRoleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,24 +47,27 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public List<RoleDTO> findAll() {
-        Set<RoleDTO> set = new HashSet<>();
-
-        for (Role role : roleRepo.findAll()) {
-            set.add(roleMapper.convertToDTO(role));
+    public List<RoleDTO> findAll(Integer page, Integer size) {
+        List<RoleDTO> list = new ArrayList<>();
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "roleID"));
+        for (Role role : roleRepo.findAll(pageRQ)) {
+            list.add(roleMapper.convertToDTO(role));
         }
 
-        return set.stream()
-                .sorted(Comparator.comparing(RoleDTO::getRoleID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public RoleDTO findById(Long id) {
         Optional<Role> opt = roleRepo.findById(id);
         if (!opt.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
         return roleMapper.convertToDTO(opt.get());

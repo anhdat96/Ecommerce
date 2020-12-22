@@ -25,8 +25,11 @@ public class RoleController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<RoleDTO> findAll() {
-        return roleService.findAll();
+    public List<RoleDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return roleService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")

@@ -23,8 +23,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<UserDTO> findAll() {
-        return userService.findAll();
+    public List<UserDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return userService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")

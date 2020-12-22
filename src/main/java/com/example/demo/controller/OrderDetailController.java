@@ -22,8 +22,11 @@ public class OrderDetailController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<OrderDetailDTO> findAll() {
-        return orderDetailService.findAll();
+    public List<OrderDetailDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return orderDetailService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")

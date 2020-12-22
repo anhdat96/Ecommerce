@@ -9,6 +9,8 @@ import com.example.demo.service.dto.ProductCategoryDTO;
 import com.example.demo.service.mapper.IProductCategoryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -46,24 +48,27 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
     //endregion
 
     @Override
-    public List<ProductCategoryDTO> findAll() {
-        Set<ProductCategoryDTO> set = new HashSet<>();
-
-        for (ProductCategories productCategory : productCategoryRepo.findAll()) {
-            set.add(productCategoryMapper.convertToDTO(productCategory));
+    public List<ProductCategoryDTO> findAll(Integer page, Integer size) {
+        List<ProductCategoryDTO> list = new ArrayList<>();
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "categoryID"));
+        for (ProductCategories productCategory : productCategoryRepo.findAll(pageRQ)) {
+            list.add(productCategoryMapper.convertToDTO(productCategory));
         }
 
-        return set.stream()
-                .sorted(Comparator.comparing(ProductCategoryDTO::getCategoryID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public ProductCategoryDTO findById(Long id) {
         Optional<ProductCategories> opt = productCategoryRepo.findById(id);
         if (!opt.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
         return productCategoryMapper.convertToDTO(opt.get());

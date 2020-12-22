@@ -23,8 +23,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping(value = "/get-all")
-    public List<ProductCategoryDTO> findAll() {
-        return productCategoryService.findAll();
+    public List<ProductCategoryDTO> findAll(
+            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "5") Integer size
+    ) {
+        return productCategoryService.findAll(page, size);
     }
 
     @GetMapping(value = "/get-one")

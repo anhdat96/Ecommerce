@@ -11,11 +11,13 @@ import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.mapper.IOrderMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -61,27 +63,32 @@ public class OrderServiceImpl implements IOrderService {
             }
         }
     }
+
     //endregion
     //endregion
     @Override
-    public List<OrderDTO> findAll() {
-        Set<OrderDTO> set = new HashSet<>();
+    public List<OrderDTO> findAll(Integer page, Integer size) {
+        List<OrderDTO> list = new ArrayList<>();
 
-        for (Orders order : orderRepo.findAll()) {
-            set.add(orderMapper.convertToDTO(order));
+        if (page < 1) {
+            throw new IllegalArgumentException("Page must be more than zero!");
+        }
+        if (size < 1) {
+            throw new IllegalArgumentException("Size must be more than zero!");
+        }
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "orderID"));
+        for (Orders order : orderRepo.findAll(pageRQ)) {
+            list.add(orderMapper.convertToDTO(order));
         }
         // phần này cần thay bằng hql
-        return set.stream()
-                .sorted(Comparator.comparing(OrderDTO::getOrderID))
-                .collect(Collectors.toList());
+        return list;
     }
 
     @Override
     public OrderDTO findById(Long id) {
         Optional<Orders> opt = orderRepo.findById(id);
         if (!opt.isPresent()) {
-            log.error("ID " + id + "is not exist");
-            ResponseEntity.badRequest().build();
+            throw new IllegalArgumentException("ID " + id + " is not exist");
         }
 
         return orderMapper.convertToDTO(opt.get());
