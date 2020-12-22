@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.IOrderService;
 import com.example.demo.service.IRoleService;
-import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +19,7 @@ public class RoleController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public RoleDTO create(@RequestBody RoleDTO roleDTO) {
+    public RoleDTO create(@Valid @RequestBody RoleDTO roleDTO) {
         return roleService.save(roleDTO);
     }
 
@@ -39,7 +38,7 @@ public class RoleController {
 
     @PutMapping(value = "/update")
     @Transactional
-    public RoleDTO update(@RequestParam Long id, @RequestBody RoleDTO roleDTO) {
+    public RoleDTO update(@RequestParam Long id, @Valid @RequestBody RoleDTO roleDTO) {
         return roleService.update(id, roleDTO);
     }
 

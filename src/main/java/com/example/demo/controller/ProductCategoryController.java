@@ -2,11 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.service.IProductCategoryService;
 import com.example.demo.service.dto.ProductCategoryDTO;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +20,8 @@ public class ProductCategoryController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public ProductCategoryDTO create(@RequestBody ProductCategoryDTO productCategoryDTO) {
+    @JsonCreator
+    public ProductCategoryDTO create(@Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
         return productCategoryService.save(productCategoryDTO);
     }
 
@@ -37,7 +40,7 @@ public class ProductCategoryController {
 
     @PutMapping(value = "/update")
     @Transactional
-    public ProductCategoryDTO update(@RequestParam Long id, @RequestBody ProductCategoryDTO productCategoryDTO) {
+    public ProductCategoryDTO update(@RequestParam Long id, @Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
         return productCategoryService.update(id, productCategoryDTO);
     }
 

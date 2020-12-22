@@ -1,30 +1,33 @@
 package com.example.demo.service.dto;
 
-import com.example.demo.models.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@Getter
-@Setter
-@ToString
+@Data
 public class ProductDTO implements Serializable {
+    @Null
     private Long productID;
+    @NotNull
     private String productName;
+    @NotNull
     private String productPrice;
+    @NotNull
     private String productImage;
+    @NotNull
     private Long productCategoryID;
+    @NotNull
     private String productThumb;
+    @NotNull
     private String productDescription;
+    @NotNull
     private String productCode;
+    @NotNull
     private Integer status;
     private List<Long> orderDetailIds;
     private Long categoryId;

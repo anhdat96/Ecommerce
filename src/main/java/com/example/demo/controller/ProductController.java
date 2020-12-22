@@ -1,14 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.IProductService;
-import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.ProductDTO;
-import com.example.demo.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +19,7 @@ public class ProductController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public ProductDTO create(@RequestBody ProductDTO productDTO) {
+    public ProductDTO create(@Valid @RequestBody ProductDTO productDTO) {
         return productService.save(productDTO);
     }
 
@@ -39,7 +38,7 @@ public class ProductController {
 
     @PutMapping(value = "/update")
     @Transactional
-    public ProductDTO update(@RequestParam Long id, @RequestBody ProductDTO productDTO) {
+    public ProductDTO update(@RequestParam Long id, @Valid @RequestBody ProductDTO productDTO) {
         return productService.update(id, productDTO);
     }
 

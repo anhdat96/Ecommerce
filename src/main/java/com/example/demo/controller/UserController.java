@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,7 +19,7 @@ public class UserController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public UserDTO create(@RequestBody UserDTO userDTO) {
+    public UserDTO create(@Valid @RequestBody UserDTO userDTO) {
         return userService.save(userDTO);
     }
 
@@ -37,7 +38,7 @@ public class UserController {
 
     @PutMapping(value = "/update")
     @Transactional
-    public UserDTO update(@RequestParam Long id, @RequestBody UserDTO userDTO) {
+    public UserDTO update(@RequestParam Long id, @Valid @RequestBody UserDTO userDTO) {
         return userService.update(id, userDTO);
     }
 

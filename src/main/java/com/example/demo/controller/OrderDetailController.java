@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class OrderDetailController {
     private IOrderDetailService orderDetailService;
 
     @PostMapping(value = "/create")
-    public OrderDetailDTO create(@RequestBody OrderDetailDTO orderDetail) {
+    public OrderDetailDTO create(@Valid @RequestBody OrderDetailDTO orderDetail) {
         return orderDetailService.save(orderDetail);
     }
 
@@ -40,7 +41,7 @@ public class OrderDetailController {
     }
 
     @PutMapping(value = "/update")
-    public OrderDetailDTO update(@RequestParam Long id, @RequestBody OrderDetailDTO dto) {
+    public OrderDetailDTO update(@RequestParam Long id,@Valid @RequestBody OrderDetailDTO dto) {
         return orderDetailService.update(id, dto);
     }
 
