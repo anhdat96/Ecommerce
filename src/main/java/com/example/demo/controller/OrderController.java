@@ -2,7 +2,6 @@ package com.example.demo.controller;
 
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
-import com.example.demo.service.dto.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -20,13 +19,10 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public ResponseDTO<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
-        ResponseDTO<OrderDTO> responseDTO = new ResponseDTO<>();
-        responseDTO.setCode("SUCCESS.CREATE.ORDER");
-        responseDTO.setMessage("Tạo mới order thành công");
-        responseDTO.setData(orderService.save(orderDTO));
+    public OrderDTO create(@RequestBody OrderDTO orderDTO) {
+        // sử dụng Map<String, Object> để tạo json có field name tùy chỉnh
 
-        return responseDTO;
+        return orderService.save(orderDTO);
     }
 
     @GetMapping(value = "/get-all")
