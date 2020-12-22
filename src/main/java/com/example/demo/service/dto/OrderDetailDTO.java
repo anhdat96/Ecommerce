@@ -18,8 +18,6 @@ public class OrderDetailDTO implements Serializable {
     private String detailName;
     private Float detailPrice;
     private Integer Quantity;
-    private Long product_id;
-    private ProductDTO products;
-    private Long order_id;
-    private OrderDTO orders;
+    private Long productId;
+    private Long orderId;
 }

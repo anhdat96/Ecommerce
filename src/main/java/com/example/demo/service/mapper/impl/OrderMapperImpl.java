@@ -5,13 +5,13 @@ import com.example.demo.models.Orders;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.repository.IUserRepository;
-import com.example.demo.service.dto.*;
+import com.example.demo.service.dto.OrderDTO;
 import com.example.demo.service.mapper.BaseMapper;
 import com.example.demo.service.mapper.IOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 @Component
 public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
@@ -22,55 +22,41 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
 
     /* convert tu entity -->DTO*/
     @Override
-    public OrderDTO convertToDTO(Orders order) {
-        OrderDTO orderDTO = this.tranferData(order, OrderDTO.class);
+    public OrderDTO convertToDTO(Orders input) {
+        OrderDTO output = this.tranferData(input, OrderDTO.class);
 
-        this.displayConfig(orderDTO);
+        this.getIdFromRelationTable(input, output);
 
-        return orderDTO;
+        return output;
     }
 
-    //region cấu hình cách hiển thị thông tin order table
-    private void displayConfig(OrderDTO orderDTO) {
-        //config order detail
-        for (OrderDetailDTO orderDetailDTO : orderDTO.getOderDetailList()) {
-            //config order of order detail
-            if (orderDetailDTO != null) {
-                orderDetailDTO.setOrders(null);
+    private void getIdFromRelationTable(Orders input, OrderDTO output) {
+        this.getIdFromUserTable(input, output);
+        this.getIdFromOrderDetailTable(input, output);
+    }
 
-                //config product of order detail
-                ProductDTO productDTO = orderDetailDTO.getProducts();
-                if (productDTO != null) {
-                    productDTO.setOderDetailList(new HashSet<>());
-                }
+    //region get id from user table n order detail table
+    private void getIdFromOrderDetailTable(Orders input, OrderDTO output) {
+        output.setOrderDetailIds(new ArrayList<>());
 
-                ProductCategoryDTO productCategoryDTO = productDTO.getProductCategories();
-                if (productCategoryDTO != null) {
-                    productCategoryDTO.setProductsList(new HashSet<>());
-                }
-            }
+        for (OderDetail detail : input.getOderDetailList()){
+            output.getOrderDetailIds().add(detail.getDetailID());
         }
+    }
 
-        //config user
-        UserDTO userDTO = orderDTO.getUser();
-        if (null != userDTO) {
-            userDTO.setOrdersList(new HashSet<>());
-
-            for (RoleDTO roleDTO : userDTO.getRoles()) {
-                roleDTO.setUsers(new HashSet<>());
-            }
-        }
+    private void getIdFromUserTable(Orders input, OrderDTO output) {
+        output.setUserId(input.getUser().getUserID());
     }
     //endregion
 
     /* convert tu DTO --> Entity*/
     @Override
-    public Orders convertToEntity(OrderDTO orderDTO) {
-        Orders order = this.tranferData(orderDTO, Orders.class);
+    public Orders convertToEntity(OrderDTO input) {
+        Orders output = this.tranferData(input, Orders.class);
 
-        order.setOderDetailList(this.getDataById(orderDTO.getOrderDetail_ids(), orderDetailRepo, OderDetail.class));
-        order.setUser(this.getDataById(orderDTO.getUser_id(), userRepo, User.class));
+        output.setOderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OderDetail.class));
+        output.setUser(this.getDataById(input.getUserId(), userRepo, User.class));
 
-        return order;
+        return output;
     }
 }

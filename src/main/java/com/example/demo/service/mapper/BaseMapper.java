@@ -1,7 +1,10 @@
 package com.example.demo.service.mapper;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.lang.reflect.Type;
@@ -66,5 +69,20 @@ public abstract class BaseMapper {
         }
 
         return set;
+    }
+
+    protected <D> boolean validateDTO(D dto){
+        JSONObject jsonObj = new JSONObject(dto);
+        Iterator<String> keys = jsonObj.keys();
+
+        while(keys.hasNext()) {
+            String key = keys.next();
+            if (jsonObj.get(key) instanceof JSONObject) {
+                // do something with jsonObject here
+                System.out.println(key);
+            }
+        }
+
+        return true;
     }
 }

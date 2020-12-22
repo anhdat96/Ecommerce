@@ -28,8 +28,6 @@ public class UserDTO implements Serializable {
     private String userState;
     private String userCountry;
     private Instant dateOfBirth;
-    private List<Long> role_ids;
-    private Set<RoleDTO> roles = new HashSet<>();
-    private List<Long> order_ids;
-    private Set<OrderDTO> ordersList = new HashSet<>();
+    private List<Long> roleIds;
+    private List<Long> orderIds;
 }

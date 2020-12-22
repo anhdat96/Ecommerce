@@ -25,8 +25,6 @@ public class OrderDTO implements Serializable {
     private String orderPhone;
     private String orderEmail;
     private Instant orderDate;
-    private List<Long> orderDetail_ids;
-    private Set<OrderDetailDTO> oderDetailList;
-    private Long user_id;
-    private UserDTO user;
+    private List<Long> orderDetailIds;
+    private Long userId;
 }

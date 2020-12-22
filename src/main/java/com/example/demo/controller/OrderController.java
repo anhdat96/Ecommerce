@@ -24,7 +24,7 @@ public class OrderController {
         ResponseDTO<OrderDTO> responseDTO = new ResponseDTO<>();
         responseDTO.setCode("SUCCESS.CREATE.ORDER");
         responseDTO.setMessage("Tạo mới order thành công");
-        responseDTO.setData(orderDTO);
+        responseDTO.setData(orderService.save(orderDTO));
 
         return responseDTO;
     }

@@ -5,13 +5,13 @@ import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderRepository;
 import com.example.demo.repository.IRoleRepository;
-import com.example.demo.service.dto.*;
+import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.BaseMapper;
 import com.example.demo.service.mapper.IUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 @Component
 public class UserMapperImpl extends BaseMapper implements IUserMapper {
@@ -25,45 +25,35 @@ public class UserMapperImpl extends BaseMapper implements IUserMapper {
     public UserDTO convertToDTO(User input) {
         UserDTO output = this.tranferData(input, UserDTO.class);
 
-        //config user
-        this.displayConfig(output);
+        this.getIdFromRelationTable(input, output);
 
         return output;
     }
 
-    //region cấu hình cách hiển thị thông tin order table
-    private void displayConfig(UserDTO userDTO) {
-        // config role of user
-        for (RoleDTO roleDTO : userDTO.getRoles()) {
-            if (roleDTO != null) {
-                roleDTO.setUsers(new HashSet<>());
-            }
+
+    private void getIdFromRelationTable(User input, UserDTO output) {
+        this.getIdFromRoleTable(input, output);
+        this.getIdFromOrderTable(input, output);
+    }
+
+    //region get id from role table n order table
+    private void getIdFromOrderTable(User input, UserDTO output) {
+        output.setOrderIds(new ArrayList<>());
+
+        for (Orders order : input.getOrdersList()) {
+            if (null == order) continue;
+            output.getOrderIds().add(order.getOrderID());
         }
+    }
 
-        // config order of user
-        for (OrderDTO orderDTO : userDTO.getOrdersList()) {
-            if (orderDTO == null) continue;
-            ;
+    private void getIdFromRoleTable(User input, UserDTO output) {
+        output.setRoleIds(new ArrayList<>());
 
-            orderDTO.setUser(null);
-            // config order detail
-            for (OrderDetailDTO orderDetailDTO : orderDTO.getOderDetailList()) {
-                if (orderDetailDTO == null) continue;
+        for (Role role : input.getRoles()) {
+            if (null == role) continue;
 
-                orderDetailDTO.setOrders(null);
-                // config product
-                ProductDTO productDTO = orderDetailDTO.getProducts();
-                productDTO.setOderDetailList(new HashSet<>());
-
-                //config product category
-                ProductCategoryDTO productCategoryDTO = productDTO.getProductCategories();
-                if (productCategoryDTO != null) {
-                    productCategoryDTO.setProductsList(new HashSet<>());
-                }
-            }
+            output.getRoleIds().add(role.getRoleID());
         }
-
-
     }
     //endregion
 
@@ -72,8 +62,8 @@ public class UserMapperImpl extends BaseMapper implements IUserMapper {
     public User convertToEntity(UserDTO input) {
         User output = this.tranferData(input, User.class);
 
-        output.setRoles(this.getDataById(input.getRole_ids(), roleRepo, Role.class));
-        output.setOrdersList(this.getDataById(input.getOrder_ids(), orderRepo, Orders.class));
+        output.setRoles(this.getDataById(input.getRoleIds(), roleRepo, Role.class));
+        output.setOrdersList(this.getDataById(input.getOrderIds(), orderRepo, Orders.class));
 
         return output;
     }

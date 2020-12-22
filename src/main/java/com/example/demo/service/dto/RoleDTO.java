@@ -18,6 +18,5 @@ public class RoleDTO implements Serializable {
     private Long roleID;
     private String manager;
     private String customer;
-    private List<Long> user_ids;
-    private Set<UserDTO> users = new HashSet<>();
+    private List<Long> userIds;
 }
