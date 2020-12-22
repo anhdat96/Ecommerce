@@ -1,9 +1,7 @@
 package com.example.demo.service.mapper;
 
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.lang.reflect.Type;
@@ -48,11 +46,12 @@ public abstract class BaseMapper {
 
     public <D, O, R extends JpaRepository<O, Long>> Set<D> getDataById(List<Long> ids, R repo, Type destType) {
         ids = null == ids ? new ArrayList<>() : ids;
+
         Set<D> set = new HashSet<>();
 
-        for (long id : ids) {
-            if (this.getDataById(id, repo, destType) != null) {
-                set.add(this.getDataById(id, repo, destType));
+        for (O origin : repo.findAllById(ids)) {
+            if (origin != null) {
+                set.add(this.tranferData(origin, destType));
             }
         }
 

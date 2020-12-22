@@ -66,9 +66,6 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         return orderDetailMapper.convertToDTO(optionalOrderDetail.get());
     }
 
-    @PersistenceContext
-    private EntityManager em;
-
     @Override
     public List<OrderDetailDTO> findByDetailName(final String fieldName,String name) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
+import com.example.demo.service.dto.ResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,8 +20,13 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public OrderDTO create(@RequestBody OrderDTO orderDTO) {
-        return orderService.save(orderDTO);
+    public ResponseDTO<OrderDTO> create(@RequestBody OrderDTO orderDTO) {
+        ResponseDTO<OrderDTO> responseDTO = new ResponseDTO<>();
+        responseDTO.setCode("SUCCESS.CREATE.ORDER");
+        responseDTO.setMessage("Tạo mới order thành công");
+        responseDTO.setData(orderDTO);
+
+        return responseDTO;
     }
 
     @GetMapping(value = "/get-all")
