@@ -26,7 +26,7 @@ public class SwaggerConfig {
                 .pathProvider(new RelativePathProvider(null){
                     @Override
                     public String getApplicationBasePath() {
-                        return "/api";
+                        return "";
                     }
                 })
                 .select()
