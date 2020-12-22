@@ -32,10 +32,6 @@ public class UserServiceImpl implements IUserService {
     public UserDTO save(UserDTO userDTO) {
         log.info("Request to save Products :{}", userDTO);
         User user = iUserMapper.toEntity(userDTO);
-//        if(userDTO.getRoleIds() != null){
-//            List<Role> roles = iRoleRepository.findAllById(userDTO.getRoleIds());
-//            user.setRoles(roles);
-//        }
         user = iUserRepository.save(user);
         return iUserMapper.toDto(user);
     }
