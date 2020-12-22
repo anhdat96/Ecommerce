@@ -1,17 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.IUserService;
-import com.example.demo.service.dto.ProductDTO;
 import com.example.demo.service.dto.UserDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -22,6 +15,7 @@ public class UserController {
 
     @PostMapping(value = "/create" )
     public UserDTO create(@RequestBody UserDTO userDTO) {
+
         return iUserService.save(userDTO);
     }
 

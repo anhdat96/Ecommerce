@@ -1,7 +1,5 @@
 package com.example.demo.service.dto;
 
-import com.example.demo.models.Orders;
-import com.example.demo.models.Products;
 import lombok.Data;
 
 @Data
@@ -10,32 +8,30 @@ public class OderdetailDTO {
 
     private Long detailOder;
 
-    private Long detailProductID;
-
     private String detailName;
 
     private Float detailPrice;
 
     private Integer Quantity;
 
-    private Products products;
+    private Long productId;
 
-    private Orders orders;
+    private long ordersId;
 
-    public Orders getOrders() {
-        return orders;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setOrders(Orders orders) {
-        this.orders = orders;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public Products getProducts() {
-        return products;
+    public long getOrdersId() {
+        return ordersId;
     }
 
-    public void setProducts(Products products) {
-        this.products = products;
+    public void setOrdersId(long ordersId) {
+        this.ordersId = ordersId;
     }
 
     public Long getDetailID() {
@@ -52,14 +48,6 @@ public class OderdetailDTO {
 
     public void setDetailOder(Long detailOder) {
         this.detailOder = detailOder;
-    }
-
-    public Long getDetailProductID() {
-        return detailProductID;
-    }
-
-    public void setDetailProductID(Long detailProductID) {
-        this.detailProductID = detailProductID;
     }
 
     public String getDetailName() {

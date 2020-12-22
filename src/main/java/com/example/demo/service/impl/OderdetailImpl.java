@@ -29,4 +29,14 @@ public class OderdetailImpl implements IOderdetailService {
     public Optional<OderdetailDTO> findById(Long id) {
         return iOderdetailReository.findById(id).map(oderdetailMapperImpl::toDto);
     }
+
+    @Override
+    public OderdetailDTO update(OderdetailDTO oderdetailDTO, Long id) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
 }

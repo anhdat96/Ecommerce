@@ -18,9 +18,7 @@ public class OderdetailMapperImpl implements IOderDetailMapper {
         oderDetail.setDetailOder(oderdetailDTO.getDetailOder());
         oderDetail.setDetailName(oderdetailDTO.getDetailName());
         oderDetail.setDetailPrice(oderdetailDTO.getDetailPrice());
-        oderDetail.setDetailProductID(oderdetailDTO.getDetailProductID());
         oderDetail.setQuantity(oderdetailDTO.getQuantity());
-        oderDetail.setProducts(oderdetailDTO.getProducts());
 
         return oderDetail;
     }
@@ -35,9 +33,7 @@ public class OderdetailMapperImpl implements IOderDetailMapper {
         oderdetailDTO.setDetailOder(oderDetail.getDetailOder());
         oderdetailDTO.setDetailName(oderDetail.getDetailName());
         oderdetailDTO.setDetailPrice(oderDetail.getDetailPrice());
-        oderdetailDTO.setDetailProductID(oderDetail.getDetailProductID());
         oderdetailDTO.setQuantity(oderDetail.getQuantity());
-        oderdetailDTO.setProducts(oderDetail.getProducts());
 
         return oderdetailDTO;
     }

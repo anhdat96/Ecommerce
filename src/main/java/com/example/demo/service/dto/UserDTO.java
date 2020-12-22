@@ -1,9 +1,12 @@
 package com.example.demo.service.dto;
 
+import com.example.demo.models.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,5 +35,7 @@ public class UserDTO {
     private String userCountry;
 
     private Instant dateOfBirth;
+
+    private List<Long> roleIds;
 
 }
