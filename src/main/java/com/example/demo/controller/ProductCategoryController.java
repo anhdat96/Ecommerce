@@ -20,7 +20,6 @@ public class ProductCategoryController {
 
     @PostMapping(value = "/create")
     @Transactional
-    @JsonCreator
     public ProductCategoryDTO create(@Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
         return productCategoryService.save(productCategoryDTO);
     }
