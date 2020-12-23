@@ -1,9 +1,6 @@
 package com.example.demo.models;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -20,35 +17,35 @@ import java.util.Set;
 public class User extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
-    private long userID;
-    @Column(name = "userEmail")
+    @Column(name = "id")
+    private long id;
+    @Column(name = "user_email")
     private String userEmail;
-    @Column(name = "userPassword")
+    @Column(name = "user_password")
     private String userPassword;
-    @Column(name = "userFirstName")
+    @Column(name = "user_first_name")
     private String userFirstName;
-    @Column(name = "userLastName")
+    @Column(name = "user_last_name")
     private String userLastName;
-    @Column(name = "userAddress")
+    @Column(name = "user_address")
     private String userAddress;
-    @Column(name = "userPhone")
+    @Column(name = "user_phone")
     private String userPhone;
     @Column(name = "gender")
     private String gender;
-    @Column(name = "userCity")
+    @Column(name = "user_city")
     private String userCity;
-    @Column(name = "userState")
+    @Column(name = "user_state")
     private String userState;
-    @Column(name = "userCountry")
+    @Column(name = "user_country")
     private String userCountry;
-    @Column(name = "dateOfBirth")
+    @Column(name = "date_of_birth")
     private Instant dateOfBirth;
 
     @ManyToMany(fetch = FetchType.EAGER) //nguyentrong edit
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "userID"),
-            inverseJoinColumns = @JoinColumn(name = "roleID"))
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
 
     //nguyentrong edit

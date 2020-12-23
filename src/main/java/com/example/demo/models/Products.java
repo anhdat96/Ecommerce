@@ -19,19 +19,19 @@ import java.util.Set;
 public class Products extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "productID")
-    private long productID;
-    @Column(name = "productName")
+    @Column(name = "id")
+    private long id;
+    @Column(name = "product_name")
     private String productName;
-    @Column(name = "productPrice")
+    @Column(name = "product_price")
     private float productPrice;
-    @Column(name = "productImage")
+    @Column(name = "product_image")
     private String productImage;
-    @Column(name = "productThumb")
+    @Column(name = "product_thumb")
     private String productThumb;
-    @Column(name = "productDescription")
+    @Column(name = "product_description")
     private String productDescription;
-    @Column(name = "productCode")
+    @Column(name = "product_code")
     private String productCode;
     @Column(name = "status")
     private int status;
@@ -40,7 +40,7 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
-    @JoinColumn(name = "categoryID")
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private ProductCategories productCategories;
 
 }

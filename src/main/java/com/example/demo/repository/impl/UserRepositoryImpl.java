@@ -14,7 +14,7 @@ public class UserRepositoryImpl implements IUserRepositoryCustom {
     private EntityManager entityManager;
     @Override
     public Long countByUserID(MultiValueMap<String, String> queryParams) {
-        String sql = "select count(U) from User U where U.userID=1 ";
+        String sql = "select count(U) from User U where U.id=1 ";
         Map<String, Object> values = new HashMap<>();
         Query query = entityManager.createQuery(sql, Long.class);
         values.forEach(query::setParameter);

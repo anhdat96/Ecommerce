@@ -18,22 +18,22 @@ import java.io.Serializable;
 public class OderDetail extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detailID")
-    private long detailID;
-    @Column(name = "detailName")
+    @Column(name = "id")
+    private long id;
+    @Column(name = "detail_name")
     private String detailName;
-    @Column(name = "detailPrice")
+    @Column(name = "detail_price")
     private float detailPrice;
     @Column(name = "quantity")
     private int Quantity;
 
 
     @ManyToOne //nguyentrong edit
-    @JoinColumn(name = "productID", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
     private Products products;
 
     @ManyToOne
-    @JoinColumn(name = "orderID", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
     private Orders orders;
 
 

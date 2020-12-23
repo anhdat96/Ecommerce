@@ -20,8 +20,8 @@ import java.util.Set;
 public class Role extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "roleID")
-    private long roleID;
+    @Column(name = "id")
+    private long id;
     @Column(name = "manager")
     private String manager;
     @Column(name = "customer")

@@ -20,29 +20,29 @@ import java.util.Set;
 public class Orders extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderID")
-    private long orderID;
-    @Column(name = "orderAmount")
+    @Column(name = "id")
+    private long id;
+    @Column(name = "order_amount")
     private float orderAmount;
-    @Column(name = "orderShipAddress")
+    @Column(name = "order_ship_address")
     private String orderShipAddress;
-    @Column(name = "orderShipName")
+    @Column(name = "order_ship_name")
     private String orderShipName;
-    @Column(name = "orderCity")
+    @Column(name = "order_city")
     private String orderCity;
-    @Column(name = "orderCountry")
+    @Column(name = "order_country")
     private String orderCountry;
-    @Column(name = "orderPhone")
+    @Column(name = "order_phone")
     private String orderPhone;
-    @Column(name = "orderEmail")
+    @Column(name = "order_email")
     private String orderEmail;
-    @Column(name = "orderDate")
+    @Column(name = "order_date")
     private Instant orderDate;
 
     @OneToMany(mappedBy = "orders", fetch = FetchType.EAGER) //nguyentrong edit
     private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }
