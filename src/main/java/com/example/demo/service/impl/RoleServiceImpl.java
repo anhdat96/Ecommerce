@@ -55,7 +55,7 @@ public class RoleServiceImpl implements IRoleService {
         if (size < 1) {
             throw new IllegalArgumentException("Size must be more than zero!");
         }
-        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "roleID"));
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "id"));
         for (Role role : roleRepo.findAll(pageRQ)) {
             list.add(roleMapper.convertToDTO(role));
         }

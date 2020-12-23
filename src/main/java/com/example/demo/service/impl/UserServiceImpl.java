@@ -74,7 +74,7 @@ public class UserServiceImpl implements IUserService {
         if (size < 1) {
             throw new IllegalArgumentException("Size must be more than zero!");
         }
-        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "userID"));
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "id"));
         for (User user : userRepo.findAll(pageRQ)) {
             list.add(userMapper.convertToDTO(user));
         }

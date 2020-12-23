@@ -56,7 +56,7 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
         if (size < 1) {
             throw new IllegalArgumentException("Size must be more than zero!");
         }
-        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "categoryID"));
+        PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "id"));
         for (ProductCategories productCategory : productCategoryRepo.findAll(pageRQ)) {
             list.add(productCategoryMapper.convertToDTO(productCategory));
         }
