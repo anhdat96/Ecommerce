@@ -27,6 +27,7 @@ public class ProductMapperImpl implements IProductMapper {
         productDTO.setStatus(productEntity.getStatus());
         productDTO.setProductPrice(productEntity.getProductPrice());
         productDTO.setDetailID(productEntity.getProductID());
+        productDTO.setProductCategoryID(productEntity.getProductCategories().getCategoryID());
 
         return productDTO;
     }

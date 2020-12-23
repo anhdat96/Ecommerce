@@ -42,6 +42,7 @@ public class OrdersMapperImpl implements IOrdersMapper {
         ordersDTO.setOrderPhone(orders.getOrderPhone());
         ordersDTO.setOrderShipName(orders.getOrderShipName());
         ordersDTO.setOrderShipAddress(orders.getOrderShipAddress());
+        ordersDTO.setOrderUserID(orders.getUser().getUserID());
         return ordersDTO;
     }
 

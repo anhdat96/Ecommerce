@@ -31,6 +31,7 @@ public class OderdetailMapperImpl implements IOderDetailMapper {
                 oderDetail.setProducts(products);
                 Orders orders = new Orders();
                 orders.setOrderID(oderdetailDTO.getOrdersId());
+                oderDetail.setOrders(orders);
                 return oderDetail;
             }
         }catch (Exception e){
@@ -52,7 +53,7 @@ public class OderdetailMapperImpl implements IOderDetailMapper {
         oderdetailDTO.setDetailName(oderDetail.getDetailName());
         oderdetailDTO.setDetailPrice(oderDetail.getDetailPrice());
         oderdetailDTO.setQuantity(oderDetail.getQuantity());
-        oderdetailDTO.setOrdersId(oderDetail.getProducts().getProductID());
+        oderdetailDTO.setProductId(oderDetail.getProducts().getProductID());
         oderdetailDTO.setOrdersId(oderDetail.getOrders().getOrderID());
 
         return oderdetailDTO;
