@@ -20,9 +20,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class ProductCategories extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "categoryID")
+    @Column(name = "categoryid")
     private long categoryID;
-    @Column(name = "categoryName")
+    @Column(name = "category_name")
     private String categoryName;
 
     @OneToMany(mappedBy = "productCategories",cascade = CascadeType.ALL)

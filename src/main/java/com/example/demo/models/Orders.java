@@ -23,8 +23,8 @@ public class Orders extends AbstractAuditingEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderID")
     private Long orderID;
-    @Column(name = "orderUserID")
-    private Long orderUserID;
+   /* @Column(name = "orderUserID")
+    private Long orderUserID;*/
     @Column(name = "orderAmount")
     private Float orderAmount;
     @Column(name = "orderShipAddress")

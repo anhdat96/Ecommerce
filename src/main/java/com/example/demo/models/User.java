@@ -52,5 +52,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Orders> orderList = new ArrayList<>();
+
 
 }

@@ -23,10 +23,12 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "roleID")
     private Long roleID;
-    @Column(name = "manager")
-    private String manager;
-    @Column(name = "customer")
-    private String customer;
+
+    @Column(name = "name")
+    private String name;
+    @Column(name = "description")
+    private String description;
+
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
 
