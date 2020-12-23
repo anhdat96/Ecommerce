@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins  = "*")
 @RestController
 @RequestMapping("/api/product-categories")
 public class ProductCategoryController {
