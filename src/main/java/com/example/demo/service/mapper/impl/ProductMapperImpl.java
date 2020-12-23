@@ -49,7 +49,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
         ProductCategories productCategory = input.getProductCategories();
 
         if (null == productCategory) return;
-        output.setCategoryId(input.getProductCategories().getCategoryID());
+        output.setProductCategoryId(input.getProductCategories().getCategoryID());
     }
     //endregion
 
@@ -58,7 +58,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
     public Products convertToEntity(ProductDTO input) {
         Products output = this.tranferData(input, Products.class);
 
-        output.setProductCategories(this.getDataById(input.getCategoryId(), productCategoryRepo, ProductCategories.class));
+        output.setProductCategories(this.getDataById(input.getProductCategoryId(), productCategoryRepo, ProductCategories.class));
         output.setOderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OderDetail.class));
 
         return output;

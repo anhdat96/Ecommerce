@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,22 +15,18 @@ import java.util.Set;
 @Entity
 @Table(name = "products")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Getter
-@Setter
-@ToString
+@Data
 public class Products extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productID")
-    private Long productID;
+    private long productID;
     @Column(name = "productName")
     private String productName;
     @Column(name = "productPrice")
-    private String productPrice;
+    private float productPrice;
     @Column(name = "productImage")
     private String productImage;
-    @Column(name = "productCategoryID")
-    private Long productCategoryID;
     @Column(name = "productThumb")
     private String productThumb;
     @Column(name = "productDescription")
@@ -37,7 +34,7 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     @Column(name = "productCode")
     private String productCode;
     @Column(name = "status")
-    private Integer status;
+    private int status;
 
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER) //nguyentrong edit
     private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit

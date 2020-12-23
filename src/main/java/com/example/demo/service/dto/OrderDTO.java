@@ -15,8 +15,6 @@ public class OrderDTO implements Serializable {
     @Null
     private Long orderID;
     @NotNull
-    private Long orderUserID;
-    @NotNull
     private Float orderAmount;
     @NotNull
     private String orderShipAddress;
@@ -33,5 +31,6 @@ public class OrderDTO implements Serializable {
     @NotNull
     private Instant orderDate;
     private List<Long> orderDetailIds;
+    @NotNull
     private Long userId;
 }

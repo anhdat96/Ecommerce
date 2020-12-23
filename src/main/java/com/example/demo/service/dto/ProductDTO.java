@@ -16,11 +16,9 @@ public class ProductDTO implements Serializable {
     @NotNull
     private String productName;
     @NotNull
-    private String productPrice;
+    private Float productPrice;
     @NotNull
     private String productImage;
-    @NotNull
-    private Long productCategoryID;
     @NotNull
     private String productThumb;
     @NotNull
@@ -30,5 +28,6 @@ public class ProductDTO implements Serializable {
     @NotNull
     private Integer status;
     private List<Long> orderDetailIds;
-    private Long categoryId;
+    @NotNull
+    private Long productCategoryId;
 }

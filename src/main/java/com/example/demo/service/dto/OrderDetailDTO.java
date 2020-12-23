@@ -13,15 +13,13 @@ public class OrderDetailDTO implements Serializable {
     @Null
     private Long detailID;
     @NotNull
-    private Long detailOder;
-    @NotNull
-    private Long detailProductID;
-    @NotNull
     private String detailName;
     @NotNull
     private Float detailPrice;
     @NotNull
     private Integer Quantity;
+    @NotNull
     private Long productId;
+    @NotNull
     private Long orderId;
 }

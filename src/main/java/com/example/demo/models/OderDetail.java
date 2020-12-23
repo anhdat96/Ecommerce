@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,25 +14,18 @@ import java.io.Serializable;
 @Entity
 @Table(name = "oderDetail")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Getter
-@Setter
-@ToString
-
+@Data
 public class OderDetail extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "detailID")
-    private Long detailID;
-    @Column(name = "detailOder")
-    private Long detailOder;
-    @Column(name = "detailProductID")
-    private Long detailProductID;
+    private long detailID;
     @Column(name = "detailName")
     private String detailName;
     @Column(name = "detailPrice")
-    private Float detailPrice;
+    private float detailPrice;
     @Column(name = "quantity")
-    private Integer Quantity;
+    private int Quantity;
 
 
     @ManyToOne //nguyentrong edit
