@@ -1,6 +1,6 @@
 package com.example.demo.service.mapper.impl;
 
-import com.example.demo.models.OderDetail;
+import com.example.demo.models.OrderDetail;
 import com.example.demo.models.Orders;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderDetailRepository;
@@ -39,7 +39,7 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
     private void getIdFromOrderDetailTable(Orders input, OrderDTO output) {
         output.setOrderDetailIds(new ArrayList<>());
 
-        for (OderDetail detail : input.getOderDetailList()) {
+        for (OrderDetail detail : input.getOrderDetailList()) {
             if (null == detail) continue;
             output.getOrderDetailIds().add(detail.getId());
         }
@@ -58,7 +58,7 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
     public Orders convertToEntity(OrderDTO input) {
         Orders output = this.tranferData(input, Orders.class);
 
-        output.setOderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OderDetail.class));
+        output.setOrderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OrderDetail.class));
         output.setUser(this.getDataById(input.getUserId(), userRepo, User.class));
 
         return output;

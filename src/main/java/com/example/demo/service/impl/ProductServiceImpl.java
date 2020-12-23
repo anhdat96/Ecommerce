@@ -3,21 +3,15 @@ package com.example.demo.service.impl;
 import com.example.demo.models.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.IProductService;
-import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.ProductDTO;
-import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.IProductMapper;
-import com.example.demo.service.mapper.IUserMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -40,8 +34,8 @@ public class ProductServiceImpl implements IProductService {
 
     //region update related tables
     private void updateRelationTable(Products product) {
-        Set<OderDetail> set = product.getOderDetailList();
-        for (OderDetail detail : set) {
+        Set<OrderDetail> set = product.getOrderDetailList();
+        for (OrderDetail detail : set) {
             if (detail != null) {
                 detail.setProducts(product);
             }
@@ -93,7 +87,7 @@ public class ProductServiceImpl implements IProductService {
         Optional<Products> opt = productRepo.findById(id);
         if (opt.isPresent()) {
             //remove order detail table
-            orderDetailRepo.deleteAll(opt.get().getOderDetailList());
+            orderDetailRepo.deleteAll(opt.get().getOrderDetailList());
 
             productRepo.deleteById(id);
         }

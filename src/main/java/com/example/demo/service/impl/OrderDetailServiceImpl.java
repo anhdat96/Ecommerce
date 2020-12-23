@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.models.OderDetail;
+import com.example.demo.models.OrderDetail;
 import com.example.demo.repository.IOrderDetailRepository;
 import com.example.demo.service.IOrderDetailService;
 import com.example.demo.service.dto.OrderDetailDTO;
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -18,7 +17,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,7 +29,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 
     @Override
     public OrderDetailDTO save(OrderDetailDTO dto) {
-        OderDetail entity = orderDetailRepo.save(orderDetailMapper.convertToEntity(dto));
+        OrderDetail entity = orderDetailRepo.save(orderDetailMapper.convertToEntity(dto));
 
         return orderDetailMapper.convertToDTO(entity);
     }
@@ -46,7 +44,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
             throw new IllegalArgumentException("Size must be more than zero!");
         }
         PageRequest pageRQ = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.ASC, "detailID"));
-        for (OderDetail entity : orderDetailRepo.findAll(pageRQ)) {
+        for (OrderDetail entity : orderDetailRepo.findAll(pageRQ)) {
             list.add(orderDetailMapper.convertToDTO(entity));
         }
 
@@ -55,7 +53,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 
     @Override
     public OrderDetailDTO findById(Long id) {
-        Optional<OderDetail> opt = orderDetailRepo.findById(id);
+        Optional<OrderDetail> opt = orderDetailRepo.findById(id);
         if (!opt.isPresent()) {
             throw new IllegalArgumentException("ID " + id + " is not exist");
         }
@@ -68,9 +66,9 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     @Override
     public List<OrderDetailDTO> findByDetailName(final String fieldName,String name) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<OderDetail> cq = cb.createQuery(OderDetail.class);
+        CriteriaQuery<OrderDetail> cq = cb.createQuery(OrderDetail.class);
         // tạo query
-        Root<OderDetail> root = cq.from(OderDetail.class);
+        Root<OrderDetail> root = cq.from(OrderDetail.class);
         cq.select(root)
                 .where(cb.like(
                         root.get(fieldName), "%" + name + "%"

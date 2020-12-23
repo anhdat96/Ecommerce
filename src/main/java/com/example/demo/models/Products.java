@@ -35,7 +35,7 @@ public class Products extends AbstractAuditingEntity implements Serializable {
     private int status;
 
     @OneToMany(mappedBy = "products", fetch = FetchType.EAGER) //nguyentrong edit
-    private Set<OderDetail> oderDetailList = new HashSet<>(); //nguyentrong edit
+    private Set<OrderDetail> orderDetailList = new HashSet<>(); //nguyentrong edit
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)

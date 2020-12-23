@@ -1,6 +1,6 @@
 package com.example.demo.service.mapper.impl;
 
-import com.example.demo.models.OderDetail;
+import com.example.demo.models.OrderDetail;
 import com.example.demo.models.ProductCategories;
 import com.example.demo.models.Products;
 import com.example.demo.repository.IOrderDetailRepository;
@@ -39,7 +39,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
     private void getIdFromOrderDetailTable(Products input, ProductDTO output) {
         output.setOrderDetailIds(new ArrayList<>());
 
-        for (OderDetail detail : input.getOderDetailList()) {
+        for (OrderDetail detail : input.getOrderDetailList()) {
             if (null == detail) continue;
             output.getOrderDetailIds().add(detail.getId());
         }
@@ -59,7 +59,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
         Products output = this.tranferData(input, Products.class);
 
         output.setProductCategories(this.getDataById(input.getProductCategoryId(), productCategoryRepo, ProductCategories.class));
-        output.setOderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OderDetail.class));
+        output.setOrderDetailList(this.getDataById(input.getOrderDetailIds(), orderDetailRepo, OrderDetail.class));
 
         return output;
     }

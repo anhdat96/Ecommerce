@@ -1,6 +1,6 @@
 package com.example.demo.service.mapper.impl;
 
-import com.example.demo.models.OderDetail;
+import com.example.demo.models.OrderDetail;
 import com.example.demo.models.Orders;
 import com.example.demo.models.Products;
 import com.example.demo.repository.IOrderRepository;
@@ -23,7 +23,7 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
 
     /* convert tu entity -->DTO*/
     @Override
-    public OrderDetailDTO convertToDTO(OderDetail input) {
+    public OrderDetailDTO convertToDTO(OrderDetail input) {
         OrderDetailDTO output = this.tranferData(input, OrderDetailDTO.class);
 
         this.getIdFromRelationTable(input, output);
@@ -31,27 +31,27 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
         return output;
     }
 
-    private void getIdFromRelationTable(OderDetail input, OrderDetailDTO output) {
+    private void getIdFromRelationTable(OrderDetail input, OrderDetailDTO output) {
         this.getIdFromOrderTable(input,output);
         this.getIdFromProductTable(input, output);
     }
 
     //region get id from product table n order table
-    private void getIdFromProductTable(OderDetail input, OrderDetailDTO output) {
+    private void getIdFromProductTable(OrderDetail input, OrderDetailDTO output) {
         output.setProductId(input.getProducts().getId());
     }
 
-    private void getIdFromOrderTable(OderDetail input, OrderDetailDTO output) {
+    private void getIdFromOrderTable(OrderDetail input, OrderDetailDTO output) {
         output.setOrderId(input.getOrders().getId());
     }
     //endregion
 
     @Override
-    public List<OrderDetailDTO> convertToDTO(List<OderDetail> orderDetails) {
+    public List<OrderDetailDTO> convertToDTO(List<OrderDetail> orderDetails) {
         List<OrderDetailDTO> list = new ArrayList<>();
 
-        for (OderDetail oderDetail : orderDetails) {
-            list.add(this.convertToDTO(oderDetail));
+        for (OrderDetail orderDetail : orderDetails) {
+            list.add(this.convertToDTO(orderDetail));
         }
 
         return list;
@@ -59,8 +59,8 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
 
     /* convert tu DTO --> Entity*/
     @Override
-    public OderDetail convertToEntity(OrderDetailDTO dto) {
-        OderDetail entity = this.tranferData(dto, OderDetail.class);
+    public OrderDetail convertToEntity(OrderDetailDTO dto) {
+        OrderDetail entity = this.tranferData(dto, OrderDetail.class);
 
         //get data from id
         entity.setProducts(this.getDataById(dto.getProductId(), productRepo, Products.class));

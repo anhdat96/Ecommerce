@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @EqualsAndHashCode(callSuper=false)
 @Data
-public class OderDetail extends AbstractAuditingEntity implements Serializable {
+public class OrderDetail extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

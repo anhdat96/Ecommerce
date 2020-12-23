@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.models.OderDetail;
+import com.example.demo.models.OrderDetail;
 import com.example.demo.models.Orders;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderDetailRepository;
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     private void updateOrderDetailTable(Orders order) {
-        for (OderDetail orderDetail : order.getOderDetailList()) {
+        for (OrderDetail orderDetail : order.getOrderDetailList()) {
             if (orderDetail != null) {
                 orderDetail.setOrders(order);
                 orderDetailRepo.save(orderDetail);
@@ -106,7 +106,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public void deleteById(Long id) {
-        orderDetailRepo.deleteAll(orderRepo.getOne(id).getOderDetailList());
+        orderDetailRepo.deleteAll(orderRepo.getOne(id).getOrderDetailList());
         orderRepo.deleteById(id);
     }
 }
