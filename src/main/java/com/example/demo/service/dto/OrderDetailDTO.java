@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class OrderDetailDTO implements Serializable {
     @Null
-    private Long detailID;
+    private Long id;
     @NotNull
     private String detailName;
     @NotNull

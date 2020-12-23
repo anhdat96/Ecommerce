@@ -4,6 +4,8 @@ import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -19,27 +21,35 @@ public class ProductController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public ProductDTO create(@Valid @RequestBody ProductDTO productDTO) {
-        return productService.save(productDTO);
+    public ResponseEntity<ProductDTO> create(@Valid @RequestBody ProductDTO productDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.save(productDTO));
     }
 
     @GetMapping(value = "/get-all")
-    public List<ProductDTO> findAll(
+    public ResponseEntity<List<ProductDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return productService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public ProductDTO findById(@RequestParam Long id) {
-        return productService.findById(id);
+    public ResponseEntity<ProductDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.findById(id));
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public ProductDTO update(@RequestParam Long id, @Valid @RequestBody ProductDTO productDTO) {
-        return productService.update(id, productDTO);
+    public ResponseEntity<ProductDTO> update(@RequestParam Long id, @Valid @RequestBody ProductDTO productDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productService.update(id, productDTO));
     }
 
     @DeleteMapping(value = "/delete")

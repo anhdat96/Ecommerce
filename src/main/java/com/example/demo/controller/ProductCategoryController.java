@@ -2,9 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.service.IProductCategoryService;
 import com.example.demo.service.dto.ProductCategoryDTO;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -20,27 +21,35 @@ public class ProductCategoryController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public ProductCategoryDTO create(@Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
-        return productCategoryService.save(productCategoryDTO);
+    public ResponseEntity<ProductCategoryDTO> create(@Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productCategoryService.save(productCategoryDTO));
     }
 
     @GetMapping(value = "/get-all")
-    public List<ProductCategoryDTO> findAll(
+    public ResponseEntity<List<ProductCategoryDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return productCategoryService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productCategoryService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public ProductCategoryDTO findById(@RequestParam Long id) {
-        return productCategoryService.findById(id);
+    public ResponseEntity<ProductCategoryDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productCategoryService.findById(id));
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public ProductCategoryDTO update(@RequestParam Long id, @Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
-        return productCategoryService.update(id, productCategoryDTO);
+    public ResponseEntity<ProductCategoryDTO> update(@RequestParam Long id, @Valid @RequestBody ProductCategoryDTO productCategoryDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(productCategoryService.update(id, productCategoryDTO));
     }
 
     @DeleteMapping(value = "/delete")

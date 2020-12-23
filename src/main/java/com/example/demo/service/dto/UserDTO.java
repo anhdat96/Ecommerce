@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class UserDTO implements Serializable {
     @Null
-    private Long userID;
+    private Long id;
     @NotNull
     private String userEmail;
     @NotNull

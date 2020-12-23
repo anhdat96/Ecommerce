@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class OrderDTO implements Serializable {
     @Null
-    private Long orderID;
+    private Long id;
     @NotNull
     private Float orderAmount;
     @NotNull

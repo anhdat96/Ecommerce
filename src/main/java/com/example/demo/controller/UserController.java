@@ -4,6 +4,8 @@ import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -19,27 +21,35 @@ public class UserController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public UserDTO create(@Valid @RequestBody UserDTO userDTO) {
-        return userService.save(userDTO);
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO userDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.save(userDTO));
     }
 
     @GetMapping(value = "/get-all")
-    public List<UserDTO> findAll(
+    public ResponseEntity<List<UserDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return userService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public UserDTO findById(@RequestParam Long id) {
-        return userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.findById(id));
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public UserDTO update(@RequestParam Long id, @Valid @RequestBody UserDTO userDTO) {
-        return userService.update(id, userDTO);
+    public ResponseEntity<UserDTO> update(@RequestParam Long id, @Valid @RequestBody UserDTO userDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.update(id, userDTO));
     }
 
     @DeleteMapping(value = "/delete")

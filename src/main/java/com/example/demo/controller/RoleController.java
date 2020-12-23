@@ -4,6 +4,8 @@ import com.example.demo.service.IRoleService;
 import com.example.demo.service.dto.RoleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -19,27 +21,35 @@ public class RoleController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public RoleDTO create(@Valid @RequestBody RoleDTO roleDTO) {
-        return roleService.save(roleDTO);
+    public ResponseEntity<RoleDTO> create(@Valid @RequestBody RoleDTO roleDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roleService.save(roleDTO));
     }
 
     @GetMapping(value = "/get-all")
-    public List<RoleDTO> findAll(
+    public ResponseEntity<List<RoleDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return roleService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roleService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public RoleDTO findById(@RequestParam Long id) {
-        return roleService.findById(id);
+    public ResponseEntity<RoleDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roleService.findById(id));
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public RoleDTO update(@RequestParam Long id, @Valid @RequestBody RoleDTO roleDTO) {
-        return roleService.update(id, roleDTO);
+    public ResponseEntity<RoleDTO> update(@RequestParam Long id, @Valid @RequestBody RoleDTO roleDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(roleService.update(id, roleDTO));
     }
 
     @DeleteMapping(value = "/delete")

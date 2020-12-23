@@ -4,6 +4,8 @@ import com.example.demo.service.IOrderDetailService;
 import com.example.demo.service.dto.OrderDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -18,31 +20,41 @@ public class OrderDetailController {
     private IOrderDetailService orderDetailService;
 
     @PostMapping(value = "/create")
-    public OrderDetailDTO create(@Valid @RequestBody OrderDetailDTO orderDetail) {
-        return orderDetailService.save(orderDetail);
+    public ResponseEntity<OrderDetailDTO> create(@Valid @RequestBody OrderDetailDTO orderDetail) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDetailService.save(orderDetail));
     }
 
     @GetMapping(value = "/get-all")
-    public List<OrderDetailDTO> findAll(
+    public ResponseEntity<List<OrderDetailDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return orderDetailService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDetailService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public OrderDetailDTO findById(@RequestParam Long id) {
-        return orderDetailService.findById(id);
+    public ResponseEntity<OrderDetailDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDetailService.findById(id));
     }
 
     @GetMapping(value = "/get-by-name")
-    public List<OrderDetailDTO> findById(@RequestParam String name) {
-        return orderDetailService.findByDetailName("detailName", name);
+    public ResponseEntity<List<OrderDetailDTO>> findByDetailName(@RequestParam String name) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDetailService.findByDetailName("detailName", name));
     }
 
     @PutMapping(value = "/update")
-    public OrderDetailDTO update(@RequestParam Long id,@Valid @RequestBody OrderDetailDTO dto) {
-        return orderDetailService.update(id, dto);
+    public ResponseEntity<OrderDetailDTO> update(@RequestParam Long id, @Valid @RequestBody OrderDetailDTO dto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderDetailService.update(id, dto));
     }
 
     @DeleteMapping(value = "/delete")

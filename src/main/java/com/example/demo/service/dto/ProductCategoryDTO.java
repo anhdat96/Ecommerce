@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class ProductCategoryDTO implements Serializable {
     @Null
-    private Long categoryID;
+    private Long id;
     @NotNull
     private String categoryName;
     private List<Long> productIds;

@@ -81,7 +81,7 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
     public OrderDetailDTO update(Long id, OrderDetailDTO dto) {
         findById(id);
 
-        dto.setDetailID(id);
+        dto.setId(id);
         return save(dto);
     }
 

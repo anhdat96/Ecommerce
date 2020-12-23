@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class RoleDTO implements Serializable {
     @Null
-    private Long roleID;
+    private Long id;
     @NotNull
     private String manager;
     @NotNull

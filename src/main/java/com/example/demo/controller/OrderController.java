@@ -4,13 +4,13 @@ import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -21,29 +21,37 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     @Transactional
-    public OrderDTO create(@Valid @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> create(@Valid @RequestBody OrderDTO orderDTO) {
         // sử dụng Map<String, Object> để tạo json có field name tùy chỉnh
 
-        return orderService.save(orderDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.save(orderDTO));
     }
 
     @GetMapping(value = "/get-all")
-    public List<OrderDTO> findAll(
+    public ResponseEntity<List<OrderDTO>> findAll(
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "5") Integer size
     ) {
-        return orderService.findAll(page, size);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.findAll(page, size));
     }
 
     @GetMapping(value = "/get-one")
-    public OrderDTO findById(@RequestParam Long id) {
-        return orderService.findById(id);
+    public ResponseEntity<OrderDTO> findById(@RequestParam Long id) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.findById(id));
     }
 
     @PutMapping(value = "/update")
     @Transactional
-    public OrderDTO update(@RequestParam Long id,@Valid @RequestBody OrderDTO orderDTO) {
-        return orderService.update(id, orderDTO);
+    public ResponseEntity<OrderDTO> update(@RequestParam Long id, @Valid @RequestBody OrderDTO orderDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.update(id, orderDTO));
     }
 
     @DeleteMapping(value = "/delete")

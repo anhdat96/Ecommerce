@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 public class ProductDTO implements Serializable {
     @Null
-    private Long productID;
+    private Long id;
     @NotNull
     private String productName;
     @NotNull
