@@ -16,7 +16,7 @@ public class OderdetailDTO {
 
     private Long productId;
 
-    private long ordersId;
+    private Long ordersId;
 
     public Long getProductId() {
         return productId;
@@ -26,11 +26,11 @@ public class OderdetailDTO {
         this.productId = productId;
     }
 
-    public long getOrdersId() {
+    public Long getOrdersId() {
         return ordersId;
     }
 
-    public void setOrdersId(long ordersId) {
+    public void setOrdersId(Long ordersId) {
         this.ordersId = ordersId;
     }
 
