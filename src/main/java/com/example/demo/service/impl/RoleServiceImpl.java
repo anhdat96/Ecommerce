@@ -78,7 +78,7 @@ public class RoleServiceImpl implements IRoleService {
         this.findById(id);
 
         Role role = roleMapper.convertToEntity(roleDTO);
-        role.setRoleID(id);
+        role.setId(id);
         return roleMapper.convertToDTO(roleRepo.save(role));
     }
 

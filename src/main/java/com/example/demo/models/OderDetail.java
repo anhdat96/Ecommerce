@@ -1,10 +1,7 @@
 package com.example.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "oderDetail")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class OderDetail extends AbstractAuditingEntity implements Serializable {
     @Id

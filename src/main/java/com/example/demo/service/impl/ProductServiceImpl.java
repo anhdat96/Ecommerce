@@ -82,7 +82,7 @@ public class ProductServiceImpl implements IProductService {
         this.findById(id);
 
         Products product = productMapper.convertToEntity(productDTO);
-        product.setProductID(id);
+        product.setId(id);
         this.updateRelationTable(product);
 
         return productMapper.convertToDTO(productRepo.save(product));

@@ -39,7 +39,7 @@ public class ProductCategoryMapperImpl extends BaseMapper implements IProductCat
         for (Products product : input.getProductsList()) {
             if (null == product) continue;
 
-            output.getProductIds().add(product.getProductID());
+            output.getProductIds().add(product.getId());
         }
     }
     //endregion

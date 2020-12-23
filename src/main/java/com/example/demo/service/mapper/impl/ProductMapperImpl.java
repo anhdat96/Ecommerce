@@ -41,7 +41,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
 
         for (OderDetail detail : input.getOderDetailList()) {
             if (null == detail) continue;
-            output.getOrderDetailIds().add(detail.getDetailID());
+            output.getOrderDetailIds().add(detail.getId());
         }
     }
 
@@ -49,7 +49,7 @@ public class ProductMapperImpl extends BaseMapper implements IProductMapper {
         ProductCategories productCategory = input.getProductCategories();
 
         if (null == productCategory) return;
-        output.setProductCategoryId(input.getProductCategories().getCategoryID());
+        output.setProductCategoryId(input.getProductCategories().getId());
     }
     //endregion
 

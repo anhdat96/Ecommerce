@@ -79,7 +79,7 @@ public class ProductCategoryServiceImpl implements IProductCategoryService {
         this.findById(id);
 
         ProductCategories productCategory = productCategoryMapper.convertToEntity(productCategoryDTO);
-        productCategory.setCategoryID(id);
+        productCategory.setId(id);
         this.updateRelationTable(productCategory);
 
         return productCategoryMapper.convertToDTO(productCategoryRepo.save(productCategory));

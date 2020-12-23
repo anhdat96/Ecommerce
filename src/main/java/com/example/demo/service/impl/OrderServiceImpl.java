@@ -99,7 +99,7 @@ public class OrderServiceImpl implements IOrderService {
         this.findById(id);
 
         Orders order = orderMapper.convertToEntity(orderDTO);
-        order.setOrderID(id);
+        order.setId(id);
         this.updateRelationTable(order);
         return orderMapper.convertToDTO(orderRepo.save(order));
     }

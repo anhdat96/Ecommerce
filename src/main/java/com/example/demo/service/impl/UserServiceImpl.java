@@ -97,7 +97,7 @@ public class UserServiceImpl implements IUserService {
         this.findById(id);
 
         User user = userMapper.convertToEntity(userDTO);
-        user.setUserID(id);
+        user.setId(id);
         this.updateRelationTable(user);
 
         return userMapper.convertToDTO(userRepo.save(user));

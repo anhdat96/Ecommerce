@@ -41,7 +41,7 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
 
         for (OderDetail detail : input.getOderDetailList()) {
             if (null == detail) continue;
-            output.getOrderDetailIds().add(detail.getDetailID());
+            output.getOrderDetailIds().add(detail.getId());
         }
     }
 
@@ -49,7 +49,7 @@ public class OrderMapperImpl extends BaseMapper implements IOrderMapper {
         User user = input.getUser();
         if (null == user) return;
 
-        output.setUserId(input.getUser().getUserID());
+        output.setUserId(input.getUser().getId());
     }
     //endregion
 

@@ -1,9 +1,6 @@
 package com.example.demo.models;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -15,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "product_category")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@EqualsAndHashCode(callSuper=false)
 @Data
 public class ProductCategories extends AbstractAuditingEntity implements Serializable {
     @Id

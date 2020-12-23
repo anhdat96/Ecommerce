@@ -42,7 +42,7 @@ public class UserMapperImpl extends BaseMapper implements IUserMapper {
 
         for (Orders order : input.getOrdersList()) {
             if (null == order) continue;
-            output.getOrderIds().add(order.getOrderID());
+            output.getOrderIds().add(order.getId());
         }
     }
 
@@ -52,7 +52,7 @@ public class UserMapperImpl extends BaseMapper implements IUserMapper {
         for (Role role : input.getRoles()) {
             if (null == role) continue;
 
-            output.getRoleIds().add(role.getRoleID());
+            output.getRoleIds().add(role.getId());
         }
     }
     //endregion

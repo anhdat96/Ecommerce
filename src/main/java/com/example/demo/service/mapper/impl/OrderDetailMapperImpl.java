@@ -38,11 +38,11 @@ public class OrderDetailMapperImpl extends BaseMapper implements IOrderDetailMap
 
     //region get id from product table n order table
     private void getIdFromProductTable(OderDetail input, OrderDetailDTO output) {
-        output.setProductId(input.getProducts().getProductID());
+        output.setProductId(input.getProducts().getId());
     }
 
     private void getIdFromOrderTable(OderDetail input, OrderDetailDTO output) {
-        output.setOrderId(input.getOrders().getOrderID());
+        output.setOrderId(input.getOrders().getId());
     }
     //endregion
 

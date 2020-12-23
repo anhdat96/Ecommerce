@@ -36,7 +36,7 @@ public class RoleMapperImpl extends BaseMapper implements IRoleMapper {
         for (User user : input.getUsers()) {
             if (null == user) continue;
 
-            output.getUserIds().add(user.getUserID());
+            output.getUserIds().add(user.getId());
         }
     }
     //endregion
