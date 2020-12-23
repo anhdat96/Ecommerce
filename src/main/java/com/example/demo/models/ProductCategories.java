@@ -12,8 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name = "product_category")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@EqualsAndHashCode(callSuper=false)
-@Data
+@Getter
+@Setter
 public class ProductCategories extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

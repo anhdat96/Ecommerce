@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Entity
 @Table(name = "oderDetail")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@EqualsAndHashCode(callSuper=false)
-@Data
+@Getter
+@Setter
 public class OrderDetail extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -12,7 +12,6 @@ import java.util.Set;
 @Entity
 @Table(name = "products")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@EqualsAndHashCode(callSuper=false)
 @Data
 public class Products extends AbstractAuditingEntity implements Serializable {
     @Id

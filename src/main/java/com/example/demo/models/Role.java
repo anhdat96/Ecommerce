@@ -13,8 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "role")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@EqualsAndHashCode(callSuper=false)
-@Data
+@Getter
+@Setter
 public class Role extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
