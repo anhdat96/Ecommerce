@@ -7,29 +7,38 @@ import com.example.demo.service.IProductCategoryService;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.ProductCategoryDTO;
 import com.example.demo.service.dto.ProductDTO;
+import com.example.demo.service.dto.output.ResponseDTO;
 import com.example.demo.service.mapper.IProductCategoryMapper;
 import com.example.demo.service.mapper.IProductMapper;
 import com.example.demo.service.mapper.OderdetailMapperImpl;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductServiceImpl implements IProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
     @Autowired
     IProductRepository iProductRepository;
 
-    @Qualifier("productMapperImpl")
-    @Autowired
-    IProductMapper iProductMapper;
+
+    private final IProductMapper iProductMapper;
 
     @Autowired
     OderdetailMapperImpl oderdetailMapperImpl;
@@ -37,8 +46,8 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     IProductCategoryService iProductCategoryService;
 
-    @Autowired
-    IProductCategoryMapper iProductCategoryMapper;
+
+    private final IProductCategoryMapper iProductCategoryMapper;
 
     @Override
     public ProductDTO save(ProductDTO productDTO) {
@@ -90,6 +99,20 @@ public class ProductServiceImpl implements IProductService {
         log.info("can not find this " + id);
         return null;
     }
+
+    @Override
+    public ResponseDTO<List<ProductDTO>> findAll(Integer page, Integer size) {
+        Pageable p =  PageRequest.of(page,size);
+        Page<Products> all = iProductRepository.findAll(p);
+        // lấy ra page đầu tiên , mỗi page size  phần tử
+            List<Products> content = all.getContent();
+            List<ProductDTO> myProductDTOList = content.stream().map(iProductMapper::toDto).collect(Collectors.toList());
+            ResponseDTO<List<ProductDTO>> listResponseDTO = new ResponseDTO<>(myProductDTOList);
+            listResponseDTO.setPage(all.getNumber());
+            listResponseDTO.setSize(all.getSize());
+            return listResponseDTO ;
+    }
+
 
     @Override
     public void delete(Long id) {

@@ -2,22 +2,24 @@ package com.example.demo.controller;
 
 import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired
-    IUserService iUserService;
+    private final IUserService iUserService;
 
-    @PostMapping(value = "/create" )
+    @PostMapping(value = "/create")
+
     public UserDTO create(@RequestBody UserDTO userDTO) {
 
         return iUserService.save(userDTO);
     }
+
 
     @GetMapping("/get-one-product/{id}")
     public UserDTO findOne(@PathVariable Long id) {

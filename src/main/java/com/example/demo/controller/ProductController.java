@@ -1,19 +1,27 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.models.Products;
 import com.example.demo.service.IProductService;
 import com.example.demo.service.dto.ProductDTO;
+import com.example.demo.service.dto.output.ResponseDTO;
+import com.example.demo.service.mapper.ProductMapperImpl;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
 @Slf4j
+@RequiredArgsConstructor
 public class ProductController {
+
 
     @Autowired
     IProductService productService;
@@ -24,9 +32,10 @@ public class ProductController {
     }
 
     @GetMapping("/get-all-product")
-    public List<ProductDTO> findall() {
-        List<ProductDTO> productDTOList = new ArrayList<>();
-        return null;
+    public ResponseDTO<List<ProductDTO>> findall(@RequestParam(name = "page", required = false, defaultValue = "0 ") Integer page,
+                                                 @RequestParam(name = "size ", required = false, defaultValue = "10") Integer size) {
+        ResponseDTO<List<ProductDTO>> listResponseDTO = productService.findAll(page,size);
+        return listResponseDTO;
     }
 
     @GetMapping("/get-one-product/{id}")
