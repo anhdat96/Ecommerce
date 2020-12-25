@@ -1,9 +1,11 @@
 package com.example.demo.service.dto;
 
+import com.example.demo.constant.ERole;
 import com.example.demo.models.User;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.persistence.EnumType;
 import java.util.List;
 
 @Data

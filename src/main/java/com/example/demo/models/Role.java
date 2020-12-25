@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.example.demo.constant.ERole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,7 +26,6 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     private Long roleID;
 
     @Column(name = "name")
-    @Enumerated(EnumType.STRING)
     private String name;
 
     @Column(name = "description")

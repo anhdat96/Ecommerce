@@ -38,4 +38,13 @@ public class UserDTO {
 
     private List<Long> roleIds;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(String username, String email, String userPassword) {
+        this.userFirstName = username;
+        this.userEmail = email;
+        this.userPassword =userPassword;
+    }
+
 }
