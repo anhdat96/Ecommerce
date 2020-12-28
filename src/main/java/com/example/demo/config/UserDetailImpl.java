@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 public class UserDetailImpl implements UserDetails {
 
     private Long id ;
-
-    private String name ;
+    private String username ;
     private String email;
     @JsonIgnore
     private String password;
@@ -23,13 +22,13 @@ public class UserDetailImpl implements UserDetails {
 
     public UserDetailImpl(Long id, String name, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
-        this.name = name;
+        this.username = name;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
     }
     public static UserDetailImpl build(User user){
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().toString())).collect(Collectors.toList());
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return new UserDetailImpl(user.getUserID(),user.getUserFirstName(),user.getUserEmail(), user.getUserPassword(),authorities);
     }
     public Long getId() {
@@ -42,37 +41,37 @@ public class UserDetailImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true ;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true ;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true ;
     }
     @Override
     public boolean equals(Object o){

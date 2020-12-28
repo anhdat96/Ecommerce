@@ -4,9 +4,10 @@ import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/api/user")
 @Slf4j
 @RequiredArgsConstructor
@@ -34,6 +35,12 @@ public class UserController {
     @DeleteMapping(value = "/delete-user/{id}")
     public void delete(@PathVariable Long id) {
         iUserService.delete(id);
+    }
+
+    // test UI login
+    @GetMapping("/login")
+    public String login(){
+        return "login";
     }
 
 

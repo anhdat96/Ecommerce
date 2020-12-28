@@ -45,12 +45,21 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+    /* 1. receive HTTP reuqest , filter */
+    /* 2. authenticate */
+    /* 3. store authentication data */
+    /* 4. generate token */
+    /* 5. get user details*/
+    /* 6. authorize */
+    /* 7. handle exception */
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LonginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+
+
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
