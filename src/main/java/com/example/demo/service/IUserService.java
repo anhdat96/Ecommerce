@@ -11,5 +11,7 @@ public interface IUserService {
 
     UserDTO update(UserDTO userDTO, Long id);
 
+    Optional<UserDTO> findOneByLoginIgnoreCase(String username);
+
     void delete(Long id);
 }

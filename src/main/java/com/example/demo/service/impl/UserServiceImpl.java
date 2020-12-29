@@ -61,6 +61,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public Optional<UserDTO> findOneByLoginIgnoreCase(String username) {
+        return iUserRepository.findOneByUserFirstNameIgnoreCase(username).map(iUserMapper::toDto);
+    }
+
+    @Override
     public void delete(Long id) {
         log.info("Request to delete User : {}", id);
         iUserRepository.deleteById(id);

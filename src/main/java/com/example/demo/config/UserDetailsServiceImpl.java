@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+public class   UserDetailsServiceImpl implements UserDetailsService{
     @Autowired
     IUserRepository  iuserRepository;
     @Override
@@ -18,6 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = iuserRepository.findByUserFirstName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+
+        // convert user ---> userDetailImpl
 
         return UserDetailImpl.build(user);
     }

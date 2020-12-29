@@ -12,4 +12,5 @@ public interface IUserRepository extends JpaRepository<User,Long> , IUserReposit
     Optional<User> findByUserFirstName( String userFirstName);
     Boolean existsByUserFirstName(String userFirstName);
     Boolean existsByUserEmail(String email);
+    Optional<User> findOneByUserFirstNameIgnoreCase(String userFirstName);
 }

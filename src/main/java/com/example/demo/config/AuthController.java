@@ -18,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -77,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid SignUpRequest signUpRequest , Model model) {
         if (iUserRepository.existsByUserFirstName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -134,6 +135,7 @@ public class AuthController {
         userDTO.setRoleIds(roleIds);
         User user = iUserMapper.toEntity(userDTO);
         iUserRepository.save(user);
+//        model.addAttribute("user",user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

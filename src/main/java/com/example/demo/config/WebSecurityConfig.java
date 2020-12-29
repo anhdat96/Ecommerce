@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.example.demo.constant.ERole;
 import com.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +26,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     private AuthenEntryPointJwt unauthorizedHandler;
 
     @Autowired
-    UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsServiceImpl;
 
     @Bean
     public authenTokenFilter authenticationJwtTokenFilter() {
@@ -45,18 +46,24 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        /* this authentication needs to be through connecting to JPA and getting data from database  */
+        /* spring security will call userDetailsServiceImpl to get the user information  every time there is an authentication */
     }
 
+    /* authorization*/
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
+
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
                 .antMatchers("/login/**").permitAll()
                 .antMatchers("/**").permitAll()
+                .antMatchers("/admin").hasRole(ERole.ADMIN)
+                .antMatchers("/user").hasRole(ERole.USER)
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
