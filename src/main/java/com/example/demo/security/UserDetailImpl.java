@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.security;
 
 import com.example.demo.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -6,12 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/* contains necessary information (username ....) to build an Authentication */
 public class UserDetailImpl implements UserDetails {
 
     private Long id ;

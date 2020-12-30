@@ -1,10 +1,16 @@
-package com.example.demo.config;
+package com.example.demo.controller;
 
 import com.example.demo.constant.ERole;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.IRoleRepository;
 import com.example.demo.repository.IUserRepository;
+import com.example.demo.security.UserDetailImpl;
+import com.example.demo.security.jwt.JwtUtils;
+import com.example.demo.security.payload.request.LonginRequest;
+import com.example.demo.security.payload.request.SignUpRequest;
+import com.example.demo.security.payload.response.JwtResponse;
+import com.example.demo.security.payload.response.MessageResponse;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.impl.RoleServiceImpl;
 import com.example.demo.service.mapper.IUserMapper;
@@ -14,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +38,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+
 public class AuthController {
     private final Logger log = LoggerFactory.getLogger(RoleServiceImpl.class);
     private final IUserMapper iUserMapper;
@@ -55,30 +63,31 @@ public class AuthController {
     /* 7. handle exception */
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LonginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid LonginRequest loginRequest) throws Exception {
+        try {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+            String jwt = jwtUtils.generateJwtToken(authentication);
 
+            UserDetailImpl userDetails = (UserDetailImpl) authentication.getPrincipal();
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
+            return ResponseEntity.ok(new JwtResponse(jwt, "Bearer",
+                    userDetails.getId(),
+                    userDetails.getUsername(),
+                    userDetails.getEmail(),
+                    roles));
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password ", e);
+        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailImpl userDetails = (UserDetailImpl) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(new JwtResponse(jwt, "Bearer",
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                roles));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid SignUpRequest signUpRequest , Model model) {
+    public ResponseEntity<?> registerUser(@Valid SignUpRequest signUpRequest, Model model) {
         if (iUserRepository.existsByUserFirstName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -116,9 +125,9 @@ public class AuthController {
                         Role modRole = iRoleRepository.findByName(ERole.ANONYMOUS).get();
 
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        if(!(modRole != null)){
+                        if (!(modRole != null)) {
                             log.info("role is not found !");
-                           break;
+                            break;
                         }
                         roleIds.add(modRole.getRoleID());
                         log.info("User registered successfully!");

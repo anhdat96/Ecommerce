@@ -1,7 +1,9 @@
 package com.example.demo.config;
 
 import com.example.demo.constant.ERole;
-import com.example.demo.service.IUserService;
+import com.example.demo.security.UserDetailsServiceImpl;
+import com.example.demo.security.jwt.AuthenEntryPointJwt;
+import com.example.demo.security.jwt.authenTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,18 +17,18 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableWebSecurity
 /*allow spring to find and automatically apply the class to the global web security */
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 /*provides APO security on methods */
-public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private AuthenEntryPointJwt unauthorizedHandler;
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsServiceImpl;
+    @Autowired
+    private AuthenEntryPointJwt unauthorizedHandler;
 
     @Bean
     public authenTokenFilter authenticationJwtTokenFilter() {
@@ -34,13 +36,13 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return  new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean()throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
@@ -58,6 +60,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
 
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                // do not create a session
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
                 .antMatchers("/login/**").permitAll()
@@ -66,6 +69,7 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user").hasRole(ERole.USER)
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        // adding filter before authentication
     }
 }
 /* define payloads for spring rest

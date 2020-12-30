@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/login.css" type="text/css">
-</head>
-<body>
-<div class="container">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{layouts/login-layout}">
+
+<th:block xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" layout:fragment="main-content">
+    <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Sign In</h5>
-                    <form class="form-signin" method="post" th:action="@{/api/user/login}">
+                    <form class="form-signin" method="post" th:action="@{/api/auth/signin}">
                         <div class="form-label-group">
                             <input type="text" name="username" id="inputUsername" class="form-control" placeholder="username" required autofocus>
                             <label for="inputUsername">Username</label>
@@ -38,5 +34,6 @@
         </div>
     </div>
 </div>
-</body>
+</th:block>
+
 </html>
