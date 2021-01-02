@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.security.payload.response;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.example.demo.config;
+package com.example.demo.security.payload.request;
 
 import javax.validation.constraints.NotBlank;
 
-public class LonginRequest {
+public class   LonginRequest {
     @NotBlank
     private String username;
 

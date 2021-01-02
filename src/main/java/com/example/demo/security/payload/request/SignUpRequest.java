@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.security.payload.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
