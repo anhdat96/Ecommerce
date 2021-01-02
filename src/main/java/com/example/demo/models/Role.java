@@ -26,13 +26,22 @@ public class Role extends AbstractAuditingEntity implements Serializable {
     private Long roleID;
 
     @Column(name = "name")
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private ERole name;
 
     @Column(name = "description")
     private String description;
 
     @ManyToMany(mappedBy = "roles")
     private List<User> users = new ArrayList<>();
+
+    public Role() {
+
+    }
+
+    public Role(ERole name) {
+        this.name = name;
+    }
 
 
 }

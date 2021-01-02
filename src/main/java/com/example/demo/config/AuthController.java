@@ -90,32 +90,32 @@ public class AuthController {
         List<Long> roleIds = new ArrayList<>();
 
         if (strRoles == null) {
-            Role userRole = iRoleRepository.findByName(ERole.USER)
+            Role userRole = iRoleRepository.findByName(ERole.ROLE_USER.toString())
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roleIds.add(userRole.getRoleID());
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = iRoleRepository.findByName(ERole.ADMIN)
+                        Role adminRole = iRoleRepository.findByName(ERole.ROLE_ADMIN.toString())
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roleIds.add(adminRole.getRoleID());
 
                         break;
                     case "mod":
-                        Role modRole = iRoleRepository.findByName(ERole.ANONYMOUS).get();
+                        Role modRole = iRoleRepository.findByName(ERole.ROLE_MODERATOR.toString()).get();
 
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        if(!(modRole != null)){
+                        if (!(modRole != null)) {
                             log.info("role is not found !");
-                           break;
+                            break;
                         }
                         roleIds.add(modRole.getRoleID());
                         log.info("User registered successfully!");
 
                         break;
                     default:
-                        Role userRole = iRoleRepository.findByName(ERole.USER)
+                        Role userRole = iRoleRepository.findByName(ERole.ROLE_USER.toString())
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roleIds.add(userRole.getRoleID());
                 }
