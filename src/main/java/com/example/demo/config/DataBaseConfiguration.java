@@ -12,8 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
-        basePackages = {"com.example.demo.repository"})
+@EnableJpaRepositories(basePackages = {"com.example.demo.repository"})
 @EnableJpaAuditing
 @EnableTransactionManagement
 public class DataBaseConfiguration {

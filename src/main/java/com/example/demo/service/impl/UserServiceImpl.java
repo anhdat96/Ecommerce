@@ -1,9 +1,9 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.IRoleRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.repository.impl.UserRepositoryCustomImpl;
 import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.mapper.IUserMapper;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +23,8 @@ public class UserServiceImpl implements IUserService {
     private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     private final IUserMapper iUserMapper;
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository userRepository;
+    private final UserRepositoryCustomImpl userRepositoryCustomimpl;
     @Autowired
     IRoleRepository iRoleRepository;
 
@@ -32,14 +32,14 @@ public class UserServiceImpl implements IUserService {
     public UserDTO save(UserDTO userDTO) {
         log.info("Request to save Products :{}", userDTO);
         User user = iUserMapper.toEntity(userDTO);
-        user = iUserRepository.save(user);
+        user = userRepository.save(user);
         return iUserMapper.toDto(user);
     }
 
     @Override
     public Optional<UserDTO> findById(Long id) {
         log.info("Request to get one User :{}", id);
-        Optional<User> user = iUserRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
         if (!user.isPresent()) {
             log.info("ID " + id + " is not exist!");
             return null;
@@ -50,25 +50,33 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO update(UserDTO userDTO, Long id) {
         log.info("Request to update User :{}", id);
-        User user = iUserRepository.findById(userDTO.getUserID()).get();
+        User user = userRepository.findById(userDTO.getUserID()).get();
         if (!(user != null)) {
             log.info("can not find this " + id);
             return null;
         }
         user = iUserMapper.toEntity(userDTO);
-        user = iUserRepository.save(user);
+        user = userRepository.save(user);
         return iUserMapper.toDto(user);
     }
 
     @Override
     public Optional<UserDTO> findOneByLoginIgnoreCase(String username) {
-        return iUserRepository.findOneByUserFirstNameIgnoreCase(username).map(iUserMapper::toDto);
+        return userRepository.findOneByUserFirstNameIgnoreCase(username).map(iUserMapper::toDto);
     }
 
     @Override
     public void delete(Long id) {
         log.info("Request to delete User : {}", id);
-        iUserRepository.deleteById(id);
+        userRepository.deleteById(id);
 
+    }
+
+    @Override
+    public UserDTO findusername(String name) {
+        UserDTO userDTO = new UserDTO();
+        User user = userRepositoryCustomimpl.search(name);
+        userDTO = iUserMapper.toDto(user);
+        return userDTO;
     }
 }

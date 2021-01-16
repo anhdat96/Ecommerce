@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.models.Orders;
 import com.example.demo.models.User;
 import com.example.demo.repository.IOrderRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IOrderService;
 import com.example.demo.service.dto.OrdersDTO;
 import com.example.demo.service.mapper.IOrdersMapper;
@@ -29,12 +29,12 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     IOrderRepository iOrderRepository;
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository userRepository;
 
     @Override
     public OrdersDTO save(OrdersDTO ordersDTO) {
         log.info("Request to save orders:{}", ordersDTO);
-        Optional<User> user = iUserRepository.findById(ordersDTO.getOrderUserID());
+        Optional<User> user = userRepository.findById(ordersDTO.getOrderUserID());
         if (!user.isPresent()) {
             log.info("can not save because this user id : " + ordersDTO.getOrderUserID() + " is not exist in table User ");
             return null;
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements IOrderService {
         log.info("Request to update one orders:{}", ordersDTO);
         Orders orders = iOrderRepository.findById(id).get();
         if (orders != null) {
-            Optional<User> user = iUserRepository.findById(ordersDTO.getOrderUserID());
+            Optional<User> user = userRepository.findById(ordersDTO.getOrderUserID());
             if (user.isPresent()) {
                 orders = iOrdersMapper.toEntity(ordersDTO);
                 orders.setUser(user.get());

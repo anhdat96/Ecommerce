@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.IRoleRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.IRoleService;
 import com.example.demo.service.dto.RoleDTO;
 import com.example.demo.service.mapper.IRoleMapper;
@@ -27,7 +27,7 @@ public class RoleServiceImpl implements IRoleService{
     @Autowired
     IRoleRepository iRoleRepository;
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository userRepository;
 
     @Override
     public RoleDTO save(RoleDTO roleDTO) {
@@ -35,7 +35,7 @@ public class RoleServiceImpl implements IRoleService{
 
         Role role  = iRoleMapper.toEntity(roleDTO);
         if(roleDTO.getUserId() != null){
-            List<User> allById = iUserRepository.findAllById(roleDTO.getUserId());
+            List<User> allById = userRepository.findAllById(roleDTO.getUserId());
             role.setUsers(allById);
         }
 

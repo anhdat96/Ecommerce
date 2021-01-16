@@ -4,13 +4,14 @@ import com.example.demo.constant.ERole;
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
 import com.example.demo.repository.IRoleRepository;
-import com.example.demo.repository.IUserRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.security.UserDetailImpl;
 import com.example.demo.security.jwt.JwtUtils;
 import com.example.demo.security.payload.request.LonginRequest;
 import com.example.demo.security.payload.request.SignUpRequest;
 import com.example.demo.security.payload.response.JwtResponse;
 import com.example.demo.security.payload.response.MessageResponse;
+import com.example.demo.service.IUserService;
 import com.example.demo.service.dto.UserDTO;
 import com.example.demo.service.impl.RoleServiceImpl;
 import com.example.demo.service.mapper.IUserMapper;
@@ -45,12 +46,13 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    IUserRepository iUserRepository;
+    UserRepository userRepository;
     @Autowired
     IRoleRepository iRoleRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    private final IUserService iUserService;
 
     @Autowired
     JwtUtils jwtUtils;
@@ -88,13 +90,13 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid SignUpRequest signUpRequest, Model model) {
-        if (iUserRepository.existsByUserFirstName(signUpRequest.getUsername())) {
+        if (userRepository.existsByUserFirstName(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (iUserRepository.existsByUserEmail(signUpRequest.getEmail())) {
+        if (userRepository.existsByUserEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
@@ -109,20 +111,20 @@ public class AuthController {
         List<Long> roleIds = new ArrayList<>();
 
         if (strRoles == null) {
-            Role userRole = iRoleRepository.findByName(ERole.ROLE_USER.toString())
+            Role userRole = iRoleRepository.findByName(ERole.USER.toString())
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roleIds.add(userRole.getRoleID());
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = iRoleRepository.findByName(ERole.ROLE_ADMIN.toString())
+                        Role adminRole = iRoleRepository.findByName(ERole.ADMIN.toString())
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roleIds.add(adminRole.getRoleID());
 
                         break;
                     case "mod":
-                        Role modRole = iRoleRepository.findByName(ERole.ROLE_MODERATOR.toString()).get();
+                        Role modRole = iRoleRepository.findByName(ERole.MODERATOR.toString()).get();
 
 //                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         if (!(modRole != null)) {
@@ -134,7 +136,7 @@ public class AuthController {
 
                         break;
                     default:
-                        Role userRole = iRoleRepository.findByName(ERole.ROLE_USER.toString())
+                        Role userRole = iRoleRepository.findByName(ERole.USER.toString())
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roleIds.add(userRole.getRoleID());
                 }
@@ -143,10 +145,15 @@ public class AuthController {
 
         userDTO.setRoleIds(roleIds);
         User user = iUserMapper.toEntity(userDTO);
-        iUserRepository.save(user);
+        userRepository.save(user);
 //        model.addAttribute("user",user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+    @GetMapping("/test")
+    public UserDTO getusername(@RequestParam String name )
+    {
+        return iUserService.findusername(name);
     }
 
 }
