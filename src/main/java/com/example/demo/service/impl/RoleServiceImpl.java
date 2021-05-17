@@ -27,7 +27,7 @@ public class RoleServiceImpl implements IRoleService{
     @Autowired
     IRoleRepository iRoleRepository;
     @Autowired
-    IUserRepository iUserRepository;
+    IUserRepository userRepository;
 
     @Override
     public RoleDTO save(RoleDTO roleDTO) {
@@ -35,7 +35,7 @@ public class RoleServiceImpl implements IRoleService{
 
         Role role  = iRoleMapper.toEntity(roleDTO);
         if(roleDTO.getUserId() != null){
-            List<User> allById = iUserRepository.findAllById(roleDTO.getUserId());
+            List<User> allById = userRepository.findAllById(roleDTO.getUserId());
             role.setUsers(allById);
         }
 

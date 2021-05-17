@@ -14,4 +14,9 @@ public interface IUserService {
     Optional<UserDTO> findOneByLoginIgnoreCase(String username);
 
     void delete(Long id);
+
+    UserDTO findusername(String name);
+
+
+
 }

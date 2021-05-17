@@ -69,4 +69,10 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/test")
+    public UserDTO getusername(@RequestParam String name )
+    {
+        return iUserService.findusername(name);
+    }
+
 }

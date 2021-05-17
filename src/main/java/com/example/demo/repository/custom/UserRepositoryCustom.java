@@ -1,11 +1,10 @@
 package com.example.demo.repository.custom;
 
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 
-@Component
-@NoRepositoryBean
+import com.example.demo.models.User;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface UserRepositoryCustom {
-    Long count(MultiValueMap<String, String> queryParams);
+    User search(String email);
 }

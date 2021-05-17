@@ -21,8 +21,8 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
-        basePackages = {"com.example.demo.repository"},repositoryImplementationPostfix ="Impl")
+
+@EnableJpaRepositories(basePackages = {"com.example.demo.repository"})
 @EnableJpaAuditing
 @EnableTransactionManagement
 public class DataBaseConfiguration {
